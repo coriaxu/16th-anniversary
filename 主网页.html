@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>致Minnie：我们的时光档案</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Noto+Serif+SC:wght@300;400;600&family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=ZCOOL+XiaoWei&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Noto+Serif+SC:wght@300;400;600&family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=ZCOOL+XiaoWei&display=swap"
+            rel="stylesheet">
+    </noscript>
+
+    <style>
+        /* ============ 修复补丁：强制隐藏弹窗 ============ */
+        #modal {
+            display: none;
+            /* 默认必须隐藏 */
+            position: fixed;
+            z-index: 9999;
+            /* 确保在最上层 */
+        }
+
+        /* 激活状态 */
+        #modal.modal-active {
+            display: flex !important;
+            /* 强制显示 */
+        }
+
+        :root {
+            /* ============ 默认主题：干枯玫瑰 (Dried Rose) ============ */
+            --bg-paper: #FDFBF7;
+            --primary-color: #B05D67;
+            --accent-color: #C96E78;
+            --light-color: #E8D3D5;
+            --ink-grey: #333333;
+            --text-gold: #8B6914;
+            --text-gold-light: #A67C52;
+            --glass-border: rgba(255, 255, 255, 0.6);
+
+            --duration-fast: 0.2s;
+            --duration-normal: 0.3s;
+            --duration-slow: 1.2s;
+        }
+
+        /* 纪念日自动变色逻辑 (Mode A) */
+        body.theme-mist {
+            --bg-paper: #F6F8F7;
+            --primary-color: #5F8D84;
+            --accent-color: #7DAEA5;
+            --light-color: #DDEBE8;
+            --text-gold: #947C5C;
+            --text-gold-light: #B09A7A;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-paper);
+            color: var(--ink-grey);
+            font-family: 'Noto Serif SC', 'Songti SC', serif;
+            line-height: 1.8;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 1s ease, color 1s ease;
+        }
+
+        /* 字体 */
+        .rounded-num-font {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .num-font {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            letter-spacing: -0.05em;
+        }
+
+        .eng-label {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .eng-title {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .text-gold-enhanced {
+            color: var(--text-gold);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+        }
+
+        /* 动画 */
+        @media (prefers-reduced-motion: no-preference) {
+            .animate-fade-up {
+                opacity: 0;
+                transform: translateY(40px);
+                transition: opacity 0.8s ease, transform 0.8s ease;
+            }
+
+            .animate-fade-up.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .animate-pulse-1s {
+                animation: pulseOneSecond 1s infinite ease-in-out;
+                transform-origin: center bottom;
+            }
+
+            .animate-float {
+                animation: floatBlob 10s infinite alternate;
+            }
+
+            .heart-beat-num {
+                animation: heartScale 0.8s infinite ease-in-out;
+                display: inline-block;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .animate-fade-up {
+                opacity: 1;
+                transform: none;
+            }
+
+            .animate-pulse-1s {
+                animation: none;
+            }
+        }
+
+        @keyframes pulseOneSecond {
+            0% {
+                transform: scale(1);
+            }
+
+            15% {
+                transform: scale(1.02);
+            }
+
+            30% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes floatBlob {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(30px, -30px) scale(1.1);
+            }
+        }
+
+        @keyframes heartScale {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+                color: var(--accent-color);
+            }
+        }
+
+        .entrance-heart {
+            background: var(--primary-color);
+        }
+
+        .entrance-heart::before,
+        .entrance-heart::after {
+            background: var(--primary-color);
+        }
+
+        .entrance-text {
+            color: var(--primary-color);
+        }
+
+        .aurora-blob {
+            position: absolute;
+            background: radial-gradient(circle, var(--light-color) 0%, transparent 70%);
+            filter: blur(50px);
+            opacity: 0.6;
+            z-index: 0;
+        }
+
+        .text-primary {
+            color: var(--primary-color);
+        }
+
+        .bg-primary {
+            background-color: var(--primary-color);
+        }
+
+        .border-primary {
+            border-color: var(--primary-color);
+        }
+
+        /* 组件样式 */
+        .crystal-glass {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05), inset 0 0 20px rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+            transition: transform var(--duration-normal) ease;
+        }
+
+        .crystal-glass:active {
+            transform: scale(0.98);
+        }
+
+        .jewelry-frame-inner {
+            position: relative;
+            width: 260px;
+            height: 420px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.15);
+            border: 1px solid white;
+            z-index: 10;
+            transition: transform 0.5s ease;
+            overflow: hidden;
+        }
+
+        .jewelry-frame-glass-overlay {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(1px);
+            z-index: 20;
+            pointer-events: none;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+        }
+
+        .amber-card {
+            background: linear-gradient(145deg, #FFFDF8 0%, #FFF8E7 50%, #FAEBD7 100%);
+            border: 1px solid rgba(184, 146, 85, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.theme-mist .amber-card {
+            background: linear-gradient(145deg, #F9FCFB 0%, #F0F7F5 100%);
+            border-color: rgba(95, 141, 132, 0.2);
+        }
+
+        .amber-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.3) 50%, transparent 60%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        .card-story {
+            background: #fff;
+            border: 1px solid #f2efeb;
+            position: relative;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+            transition: transform var(--duration-normal) ease;
+        }
+
+        .card-story::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 20px;
+            bottom: 20px;
+            width: 4px;
+            background: var(--primary-color);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .watermark-year {
+            position: absolute;
+            top: -1.5rem;
+            right: -0.5rem;
+            font-size: 5rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--primary-color);
+            opacity: 0.06;
+            line-height: 1;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .pull-quote-mark {
+            position: absolute;
+            top: -1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            line-height: 1;
+            color: var(--primary-color);
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .music-toast {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 1px solid var(--light-color);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 90;
+            pointer-events: none;
+        }
+
+        .music-toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .music-toast-icon {
+            width: 8px;
+            height: 8px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            animation: heartScale 1s infinite;
+        }
+
+        .cta-btn::after {
+            background: var(--text-gold);
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--text-gold));
+            z-index: 1001;
+            transform-origin: left;
+            transform: scaleX(0);
+        }
+
+        .date-stamp {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            transform: rotate(3deg);
+            opacity: 0.6;
+        }
+
+        .music-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            border: 1px solid var(--primary-color);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            transition: all var(--duration-normal) ease;
+        }
+
+        .music-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .music-toggle.playing {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .music-toggle.playing svg {
+            color: white;
+        }
+
+        .entrance-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-paper);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+            padding: 2rem;
+        }
+
+        .entrance-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* 入场页心形徽章 - 图片版 */
+        .entrance-heart-img {
+            width: 160px;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(176, 29, 29, 0.4));
+            animation: heartPulse 3s ease-in-out infinite;
+            margin-bottom: 2rem;
+        }
+
+        @keyframes heartPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 25px rgba(176, 29, 29, 0.4));
+            }
+
+            50% {
+                transform: scale(1.05);
+                filter: drop-shadow(0 0 35px rgba(176, 29, 29, 0.6));
+            }
+        }
+
+        /* 入场页文案 - 还原版 */
+        .entrance-title {
+            font-family: 'Noto Serif SC', 'Songti SC', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: #5D4037;
+            /* 深咖啡色 */
+            text-align: center;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+            text-shadow: none;
+        }
+
+        .entrance-subtitle {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 400;
+            font-size: 1.2rem;
+            color: #8D6E63;
+            /* 浅咖啡色 */
+            text-align: center;
+            margin-bottom: 5rem;
+            letter-spacing: 0.1em;
+            opacity: 1;
+        }
+
+        @media (min-width: 768px) {
+            .entrance-title {
+                font-size: 2.8rem;
+                margin-bottom: 1rem;
+            }
+
+            .entrance-subtitle {
+                font-size: 1.5rem;
+                letter-spacing: 0.15em;
+            }
+
+            .entrance-heart-img {
+                width: 200px;
+                margin-bottom: 3rem;
+            }
+        }
+
+        /* 入场按钮 - 深红色还原版 */
+        .entrance-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 48px;
+            background: linear-gradient(180deg, #A6343A 0%, #8B1E25 100%);
+            border: 2px solid #C5A065;
+            /* 金色边框 */
+            border-radius: 999px;
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 500;
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            color: #FFF8E7;
+            /* 浅金色文字 */
+            cursor: pointer;
+            box-shadow:
+                0 4px 15px rgba(139, 30, 37, 0.4),
+                inset 0 1px 2px rgba(255, 255, 255, 0.2),
+                inset 0 -1px 2px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .entrance-btn:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(180deg, #B5444A 0%, #9C272E 100%);
+            box-shadow: 0 8px 25px rgba(139, 30, 37, 0.5);
+            border-color: #D4AF37;
+        }
+
+        .entrance-btn:active {
+            transform: scale(0.98);
+        }
+
+        .entrance-btn::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border-radius: 999px;
+            border: 1px solid var(--primary-color);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .entrance-btn:focus-visible::after {
+            opacity: 0.5;
+        }
+
+        .entrance-btn svg {
+            display: none;
+        }
+
+        /* 设计图中没有图标 */
+        .card-partner {
+            background: linear-gradient(to bottom right, #fff, #fdfbf7);
+            border: 1px solid rgba(184, 146, 85, 0.2);
+            padding: 2.5rem 2rem;
+            position: relative;
+            box-shadow: 0 15px 40px -10px rgba(184, 146, 85, 0.1);
+            text-align: right;
+        }
+
+        .card-partner::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 20px;
+            bottom: 20px;
+            width: 4px;
+            background: var(--text-gold);
+            border-radius: 4px 0 0 4px;
+        }
+
+        .card-crystal-ultimate {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(232, 211, 213, 0.3) 100%);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 30px 60px -15px rgba(176, 93, 103, 0.2), inset 0 0 30px rgba(255, 255, 255, 0.5);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-crystal-ultimate::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+        }
+
+        .badge-today {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.625rem;
+            letter-spacing: 0.1em;
+        }
+
+        .rose-countdown-card {
+            background: linear-gradient(135deg, #FFF5F5 0%, #FFEAEA 100%);
+            border: 1px solid rgba(176, 93, 103, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.theme-mist .rose-countdown-card {
+            background: linear-gradient(135deg, #F0F7F5 0%, #E6F0EE 100%);
+            border-color: rgba(95, 141, 132, 0.2);
+        }
+
+        .rose-countdown-card::before {
+            content: '🌹';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 80px;
+            opacity: 0.1;
+            transform: rotate(15deg);
+        }
+
+        .cta-btn {
+            position: relative;
+            overflow: visible;
+        }
+
+        .cta-btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: var(--text-gold);
+            opacity: 0;
+            transform: scale(1);
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn.burst::after {
+            animation: burst 0.6s ease-out forwards;
+        }
+
+        @keyframes burst {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        /* 模态框样式修复 */
+        .modal-backdrop {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(40, 35, 35, 0.6);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity var(--duration-normal) ease;
+        }
+
+        .modal-backdrop.modal-active {
+            opacity: 1;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 100%;
+            max-width: 380px;
+            padding: 1.5rem;
+            transform: scale(0.9) translateY(20px);
+            transition: transform var(--duration-normal) cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .close-btn {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: -12px;
+            right: 0;
+            z-index: 50;
+            border: none;
+            cursor: pointer;
+            transition: transform var(--duration-fast) ease;
+        }
+
+        .corner-accent {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-color: var(--text-gold);
+            z-index: 30;
+            opacity: 0.7;
+        }
+
+        .tl {
+            top: -10px;
+            left: -10px;
+            border-top: 2px solid;
+            border-left: 2px solid;
+        }
+
+        .br {
+            bottom: -10px;
+            right: -10px;
+            border-bottom: 2px solid;
+            border-right: 2px solid;
+        }
+
+        .sound-wave {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            height: 20px;
+        }
+
+        .sound-wave span {
+            width: 3px;
+            background: currentColor;
+            border-radius: 2px;
+            animation: soundWave 0.5s ease-in-out infinite alternate;
+        }
+
+        .sound-wave span:nth-child(1) {
+            height: 30%;
+            animation-delay: 0s;
+        }
+
+        .sound-wave span:nth-child(2) {
+            height: 60%;
+            animation-delay: 0.1s;
+        }
+
+        .sound-wave span:nth-child(3) {
+            height: 100%;
+            animation-delay: 0.2s;
+        }
+
+        .sound-wave span:nth-child(4) {
+            height: 60%;
+            animation-delay: 0.3s;
+        }
+
+        .sound-wave span:nth-child(5) {
+            height: 30%;
+            animation-delay: 0.4s;
+        }
+
+        @keyframes soundWave {
+            0% {
+                transform: scaleY(0.5);
+            }
+
+            100% {
+                transform: scaleY(1);
+            }
+        }
+
+        .film-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            z-index: 999;
+        }
+
+        /* ============ 宽屏响应式优化 (≥1024px) ============ */
+        @media (min-width: 1024px) {
+
+            /* 放大照片框架 */
+            .jewelry-frame-inner {
+                width: 360px;
+                height: 540px;
+            }
+
+            /* 放大卡片字体和 padding */
+            .card-story {
+                padding: 3.5rem 3rem;
+            }
+
+            .card-story p {
+                font-size: 1.1rem;
+                line-height: 2;
+            }
+
+            .watermark-year {
+                font-size: 7rem;
+            }
+
+            /* 放大数字计数器 */
+            #days-counter {
+                font-size: 12rem !important;
+            }
+
+            /* 放大时间计数器卡片 */
+            #hours-counter,
+            #minutes-counter {
+                font-size: 2.5rem;
+            }
+
+            #seconds-counter {
+                font-size: 5rem;
+            }
+
+            #heartbeat-counter {
+                font-size: 1.5rem;
+            }
+
+            /* 放大引言和标题 */
+            .eng-title {
+                font-size: 2.2rem;
+            }
+
+            .pull-quote-container p {
+                font-size: 1.3rem;
+            }
+
+            /* 放大 CTA 按钮 */
+            .cta-btn {
+                padding: 1.5rem 3rem;
+                font-size: 1.1rem;
+            }
+
+            /* 放大倒计时卡片数字 */
+            #rose-countdown {
+                font-size: 5rem;
+            }
+
+            /* 卡片间距加大 */
+            .space-y-16 {
+                gap: 5rem;
+            }
+        }
+
+        /* ============ 超宽屏响应式优化 (≥1280px) ============ */
+        @media (min-width: 1280px) {
+            .jewelry-frame-inner {
+                width: 400px;
+                height: 600px;
+            }
+
+            #days-counter {
+                font-size: 14rem !important;
+            }
+
+            .card-story {
+                padding: 4rem 3.5rem;
+            }
+
+            .card-story p {
+                font-size: 1.2rem;
+            }
+
+            .card-crystal-ultimate {
+                padding: 4rem 3rem;
+            }
+
+            .card-crystal-ultimate h3 {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased relative" tabindex="0">
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <div class="entrance-overlay" id="entranceOverlay">
+        <img src="ruby_heart_transparent.png" alt="Love Heart" class="entrance-heart-img">
+        <p class="entrance-title">熊老婆，我们已经走过 16 年啦！</p>
+        <p class="entrance-subtitle">感恩有你 ❤️</p>
+        <button class="entrance-btn" id="entranceBtn">
+            <span>开启时光之旅</span>
+        </button>
+    </div>
+
+    <div class="film-grain"></div>
+    <div class="aurora-blob animate-float" style="top: 5%; left: -10%; width: 300px; height: 300px;"></div>
+    <div class="aurora-blob animate-float"
+        style="bottom: 15%; right: -10%; width: 250px; height: 250px; animation-delay: -3s;"></div>
+
+    <div id="musicToast" class="music-toast eng-label text-xs text-gray-600">
+        <div class="music-toast-icon"></div>
+        <span>正在播放：遇见 (Piano Ver.) - 孙燕姿</span>
+    </div>
+
+    <button class="music-toggle" id="musicToggle" aria-label="Toggle background music">
+        <span class="music-icon-off">
+            <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M9 12H4m5 0v4m0-4V8m5 4h6"></path>
+            </svg>
+        </span>
+        <span class="music-icon-on">
+            <div class="sound-wave"><span></span><span></span><span></span><span></span><span></span></div>
+        </span>
+    </button>
+
+    <audio id="bgMusic" loop preload="auto" autoplay playsinline>
+        <source src="meet_piano.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- 第一屏 -->
+    <section class="min-h-screen flex flex-col justify-center items-center px-6 relative py-24">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-white/40 to-transparent pointer-events-none">
+        </div>
+        <div class="date-stamp animate-fade-up" style="transition-delay: 0.8s">
+            <span class="text-xs text-primary num-font" id="current-date-display"></span>
+        </div>
+
+        <div class="text-center z-10 w-full">
+            <p class="text-xs tracking-[0.3em] mb-8 text-primary uppercase font-bold eng-label animate-fade-up"
+                style="transition-delay: 0.1s">Since 2009.12.10</p>
+
+            <div class="relative inline-block my-4 animate-fade-up" style="transition-delay: 0.2s">
+                <h1 id="days-counter"
+                    class="text-7xl md:text-9xl rounded-num-font text-primary leading-none drop-shadow-sm animate-pulse-1s">
+                    0</h1>
+                <div class="absolute -bottom-2 -right-6 text-lg md:text-xl text-gold-enhanced italic eng-title">Days
+                </div>
+            </div>
+
+            <div class="w-20 h-[1px] bg-primary my-12 mx-auto opacity-40 animate-fade-up"
+                style="transition-delay: 0.3s"></div>
+
+            <p class="text-base md:text-lg text-gray-600 max-w-xs mx-auto leading-relaxed font-serif animate-fade-up"
+                style="transition-delay: 0.4s">
+                "爱是动词。<br>这是我们第 <span id="days-inline" class="font-bold text-primary"></span> 次选择彼此。"
+            </p>
+        </div>
+
+        <div class="absolute bottom-10 animate-breathe text-primary opacity-60">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3">
+                </path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- 第二屏 -->
+    <section class="py-24 px-6 relative z-10">
+        <div class="absolute inset-0 bg-white/40 skew-y-3 z-[-1]"></div>
+        <div class="max-w-xl mx-auto space-y-8">
+            <div class="text-center mb-12 animate-fade-up">
+                <h3 class="text-lg font-bold text-primary tracking-widest eng-label">爱的物理刻度</h3>
+            </div>
+            <div class="grid grid-cols-2 gap-5">
+                <div
+                    class="bg-white/80 p-6 rounded-lg border border-[var(--light-color)] text-center shadow-sm backdrop-blur-sm animate-fade-up">
+                    <div id="hours-counter" class="text-2xl num-font text-gray-800">0</div>
+                    <div class="text-[10px] text-gray-400 mt-2 tracking-widest eng-label">Hours</div>
+                </div>
+                <div
+                    class="bg-white/80 p-6 rounded-lg border border-[var(--light-color)] text-center shadow-sm backdrop-blur-sm animate-fade-up">
+                    <div id="minutes-counter" class="text-2xl num-font text-gray-800">0</div>
+                    <div class="text-[10px] text-gray-400 mt-2 tracking-widest eng-label">Minutes</div>
+                </div>
+                <div class="col-span-2 crystal-glass p-8 rounded-xl text-center text-primary animate-fade-up">
+                    <div id="seconds-counter" class="text-4xl num-font relative z-10 font-bold">0</div>
+                    <div class="text-[10px] text-[var(--ink-grey)] mt-3 relative z-10 tracking-widest eng-label">Seconds
+                        Counting</div>
+                </div>
+            </div>
+            <div
+                class="mt-8 flex items-center justify-center space-x-3 text-primary bg-white p-5 rounded-full shadow-sm border border-[var(--light-color)] animate-fade-up">
+                <svg class="w-6 h-6 animate-breathe fill-current" viewBox="0 0 24 24">
+                    <path
+                        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg>
+                <div class="text-sm text-gray-600">
+                    约 <span id="heartbeat-counter"
+                        class="num-font font-bold text-primary text-lg heart-beat-num">0</span> 次心跳共振
+                </div>
+            </div>
+            <div class="mt-24 jewelry-frame-container group cursor-pointer animate-fade-up w-fit relative mx-auto">
+                <div
+                    class="absolute inset-0 bg-gradient-to-tr from-[var(--light-color)] to-transparent opacity-30 rounded-full blur-3xl group-hover:opacity-50 transition-opacity">
+                </div>
+                <div class="jewelry-frame-inner">
+                    <img src="p1.jpg" loading="lazy"
+                        class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-1000"
+                        alt="复古风格照片">
+                </div>
+                <div class="jewelry-frame-glass-overlay"></div>
+                <div class="corner-accent tl"></div>
+                <div class="corner-accent br"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 第三屏 -->
+    <section class="py-24 px-6 relative overflow-hidden">
+        <div class="absolute left-[8%] top-0 bottom-0 w-[1px] bg-primary opacity-10 hidden md:block"></div>
+        <h3 class="text-center text-lg font-bold text-primary mb-16 tracking-widest eng-label animate-fade-up">闪闪发光的日子
+        </h3>
+        <div class="max-w-2xl mx-auto space-y-16 md:space-y-24">
+            <div class="relative animate-fade-up">
+                <div class="card-story rounded-tr-[40px]">
+                    <div class="watermark-year">09</div>
+                    <div class="relative z-10">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="eng-label text-xs font-bold text-primary border-b border-primary pb-1">DEC
+                                10</span>
+                            <span class="h-[1px] flex-grow bg-primary opacity-20"></span>
+                        </div>
+                        <h3 class="eng-title text-3xl text-[var(--ink-grey)] mb-5 italic">The Beginning</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed text-justify">
+                            <span class="text-2xl float-left mr-2 mt-[-6px] eng-title text-primary">"</span>
+                            我们在冬天相爱，<br>于是记忆里便全是暖色。<br>这一天，我们将"朋友"的标签撕下，郑重地贴上了"恋人"。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="relative animate-fade-up">
+                <div class="card-partner rounded-tl-[40px] rounded-br-[40px] ml-auto w-[90%]">
+                    <div class="watermark-year" style="right: auto; left: -2rem;">17</div>
+                    <div class="relative z-10">
+                        <div class="flex items-center space-x-3 mb-4 justify-end">
+                            <span class="h-[1px] flex-grow bg-primary opacity-20"></span>
+                            <span
+                                class="eng-label text-xs font-bold text-gold-enhanced border-b border-[var(--text-gold)] pb-1">DEC
+                                16</span>
+                        </div>
+                        <h3 class="eng-title text-3xl text-[var(--ink-grey)] mb-5 italic">Partners in Crime</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            法律见证下的盟约。<br>从此风雨同舟，<br>做彼此身后最坚实的盾。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="pull-quote-container animate-fade-up">
+                <div class="pull-quote-mark">"</div>
+                <div class="relative z-10 px-4">
+                    <p class="text-[var(--ink-grey)] eng-title italic text-lg leading-loose text-center">
+                        每一天，<br>你爱上的都是这个人的当下，<br>不是他的过去，<br>也不是过去的他。<br>
+                        <span class="block mt-6 text-primary">每一天都是新的爱上，<br>每一天都是新的开始。</span>
+                    </p>
+                    <p class="text-xs text-primary mt-6 text-right eng-label opacity-80">—— FROM MINNIE</p>
+                </div>
+            </div>
+            <div class="relative animate-fade-up">
+                <div class="card-crystal-ultimate">
+                    <div class="badge-today eng-label">TODAY</div>
+                    <h3 class="eng-label text-4xl text-primary mb-2 tracking-wide">2025</h3>
+                    <h4 class="eng-title text-xl text-gold-enhanced italic mb-6">16th Anniversary</h4>
+                    <div class="flex justify-center items-center space-x-2 opacity-50 mb-6">
+                        <span class="w-1 h-1 rounded-full bg-primary"></span>
+                        <span class="w-12 h-[1px] bg-primary"></span>
+                        <span class="w-1 h-1 rounded-full bg-primary"></span>
+                    </div>
+                    <p class="text-sm text-[var(--ink-grey)] font-medium leading-relaxed">
+                        透明，坚韧，且珍贵。<br>十六年风雨打磨，<br>终成今日剔透水晶。<br>
+                        <span
+                            class="text-gold-enhanced opacity-80 mt-2 block text-xs tracking-widest uppercase eng-label">Coria
+                            & Minnie</span>
+                    </p>
+                </div>
+            </div>
+            <div class="relative animate-fade-up">
+                <div class="rose-countdown-card">
+                    <p class="text-xs text-primary uppercase tracking-widest eng-label mb-3">Next Station</p>
+                    <h4 class="eng-title text-2xl text-[var(--ink-grey)] italic mb-4">Rose Wedding</h4>
+                    <div class="flex items-center justify-center space-x-2">
+                        <span class="text-4xl num-font text-primary" id="rose-countdown">0</span>
+                        <span class="text-sm text-gray-500">days to go</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-4">2026.12.10 · 第17年</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <section class="py-24 px-6 bg-[#262626] text-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/20 pointer-events-none"></div>
+        <div
+            class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--primary-color)] to-transparent opacity-50">
+        </div>
+        <div class="relative z-10">
+            <p class="text-[10px] tracking-[0.3em] text-gray-400 mb-8 uppercase eng-label animate-fade-up">Next Station:
+                Rose Wedding</p>
+            <h2 class="text-2xl text-[var(--bg-paper)] font-light mb-12 leading-relaxed font-serif animate-fade-up">第 17
+                年<br>是馥郁的<span class="text-primary eng-title italic mx-1">玫瑰婚</span></h2>
+            <button id="actionBtn"
+                class="cta-btn group relative px-10 py-5 bg-transparent overflow-visible rounded-full border border-[var(--text-gold-light)] text-[var(--text-gold-light)] transition-all hover:bg-[var(--text-gold)] hover:text-white hover:border-[var(--text-gold)] hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[var(--text-gold)] focus:ring-offset-2 focus:ring-offset-[#262626] animate-fade-up">
+                <span class="relative z-10 font-bold tracking-widest text-sm eng-label">开启第 17 年的玫瑰之旅 →</span>
+            </button>
+            <p class="mt-20 text-[10px] text-gray-500 num-font opacity-60 animate-fade-up">2009 - 2025 © Coria & Minnie
+            </p>
+        </div>
+    </section>
+
+    <!-- 模态框：加了内联 style="display: none;" 确保绝对隐藏 -->
+    <div id="modal" class="modal-backdrop" role="dialog" aria-modal="true" style="display: none;">
+        <div class="modal-content" id="modal-content-inner" tabindex="-1">
+            <button id="closeModalBtn" class="close-btn" aria-label="关闭">
+                <span class="text-2xl text-gray-600" aria-hidden="true">&times;</span>
+            </button>
+            <div class="amber-card">
+                <div class="aspect-[4/5] bg-gray-100 mb-5 relative overflow-hidden rounded-lg">
+                    <!-- 这里是厦门照片的占位，你把 src 换成你的照片即可 -->
+                    <img src="p2.jpg" loading="lazy" class="w-full h-full object-cover filter contrast-110 sepia-[.1]"
+                        alt="两人甜蜜合照">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none">
+                    </div>
+                </div>
+                <div class="text-center px-2 relative z-10">
+                    <h3 id="modal-title" class="text-primary font-bold text-lg mb-2 eng-label">Contract Renewed</h3>
+                    <div class="h-[1px] w-12 bg-gray-200 mx-auto my-4"></div>
+                    <p class="text-sm text-[var(--ink-grey)] eng-title leading-loose italic">
+                        "只要和你在一起，<br>无时无刻不从容。"
+                    </p>
+                    <div class="mt-6 p-3 bg-white/50 rounded-lg">
+                        <p class="text-xs text-gray-500 flex items-center justify-center gap-2">
+                            <span>🌹</span> 距离玫瑰婚还有 <span class="num-font font-bold text-primary"
+                                id="rose-countdown-modal">0</span> 天
+                        </p>
+                    </div>
+                    <p class="text-[10px] text-gray-400 mt-6 uppercase tracking-widest eng-label">Authorized by Minnie
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const CONFIG = {
+            startDate: new Date('2009-12-10T00:00:00+08:00').getTime(),
+            roseWeddingDate: new Date('2026-12-10T00:00:00+08:00').getTime(),
+            entranceDelay: 2500,
+            numberAnimationDuration: 2000
+        };
+
+        // ============ 主题引擎 ============
+        function checkAnniversaryTheme() {
+            const today = new Date();
+            const isAnniversary = (today.getMonth() + 1 === 12) && (today.getDate() === 10);
+            const forceAnniversary = false; // 日常模式设为 false
+
+            if (isAnniversary || forceAnniversary) {
+                document.body.classList.add('theme-mist');
+                console.log("Theme: Mode A (Mist) Activated");
+            } else {
+                document.body.classList.remove('theme-mist');
+                console.log("Theme: Mode Default (Rose)");
+            }
+        }
+
+        function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+        function animateNumber(element, target, duration = CONFIG.numberAnimationDuration, format = true) {
+            if (!element) return; // 空值保护，防止 DOM 元素不存在时报错
+            const start = 0; const startTime = performance.now();
+            function update(currentTime) {
+                const elapsed = currentTime - startTime; const progress = Math.min(elapsed / duration, 1);
+                const eased = easeOutCubic(progress); const current = Math.floor(start + (target - start) * eased);
+                if (element.id === 'days-counter') element.textContent = current;
+                else element.textContent = format ? current.toLocaleString() : current;
+                if (progress < 1) requestAnimationFrame(update);
+            }
+            requestAnimationFrame(update);
+        }
+        // 点击进入逻辑：用户点击按钮后触发音乐和入场动画
+        function handleEntrance() {
+            const overlay = document.getElementById('entranceOverlay');
+            const entranceBtn = document.getElementById('entranceBtn');
+
+            entranceBtn.addEventListener('click', function () {
+                // 1. 播放音乐（用户点击后浏览器允许播放）
+                startMusic();
+
+                // 2. 触发撒花庆祝
+                triggerConfetti();
+
+                // 3. 隐藏入场页
+                overlay.classList.add('hidden');
+
+                // 4. 触发页面入场动画
+                document.querySelectorAll('.animate-fade-up').forEach((el, index) => {
+                    setTimeout(() => el.classList.add('visible'), index * 100);
+                });
+
+                // 5. 启动计数器动画
+                const now = new Date().getTime();
+                const distance = now - CONFIG.startDate;
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                animateNumber(document.getElementById('days-counter'), days, 2000, false);
+                document.getElementById('days-inline').textContent = days;
+
+                const roseDays = Math.ceil((CONFIG.roseWeddingDate - now) / (1000 * 60 * 60 * 24));
+                animateNumber(document.getElementById('rose-countdown'), roseDays);
+                document.getElementById('rose-countdown-modal').textContent = roseDays;
+            });
+        }
+        function updateDateDisplay() {
+            const now = new Date();
+            const dateString = now.getFullYear() + '.' + String(now.getMonth() + 1).padStart(2, '0') + '.' + String(now.getDate()).padStart(2, '0');
+            document.getElementById('current-date-display').textContent = dateString;
+        }
+        function updateTimer() {
+            const now = new Date().getTime();
+            const distance = now - CONFIG.startDate;
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            if (document.getElementById('entranceOverlay').classList.contains('hidden')) {
+                document.getElementById('days-counter').textContent = days;
+                document.getElementById('days-inline').textContent = days;
+            }
+            document.getElementById('hours-counter').textContent = hours;
+            document.getElementById('minutes-counter').textContent = minutes;
+            document.getElementById('seconds-counter').textContent = seconds;
+            const totalMinutes = BigInt(Math.floor(distance / (1000 * 60)));
+            const heartbeats = totalMinutes * 75n; // 使用 BigInt 避免大数精度问题
+            document.getElementById('heartbeat-counter').textContent = heartbeats.toLocaleString();
+        }
+        function handleScroll() {
+            const scrollTop = window.scrollY; const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+            document.getElementById('scrollProgress').style.transform = `scaleX(${progress})`;
+            document.querySelectorAll('.animate-fade-up:not(.visible)').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.85) el.classList.add('visible');
+            });
+        }
+
+        // 模态框逻辑修复：操作 style 属性
+        const modal = document.getElementById('modal');
+        const modalContent = document.getElementById('modal-content-inner');
+        const actionBtn = document.getElementById('actionBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        let lastFocusedElement = null;
+
+        function openModal() {
+            lastFocusedElement = document.activeElement;
+            modal.style.display = 'flex'; // JS 强制显示
+            // 稍后添加 class 触发动画
+            setTimeout(() => {
+                modal.classList.add('modal-active');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => closeModalBtn.focus(), 100);
+        }
+
+        function closeModal() {
+            modal.classList.remove('modal-active');
+            document.body.style.overflow = '';
+            // 等动画结束再隐藏
+            setTimeout(() => {
+                modal.style.display = 'none'; // JS 强制隐藏
+            }, 300);
+            if (lastFocusedElement) lastFocusedElement.focus();
+        }
+
+        function triggerConfetti() {
+            const duration = 3000; const animationEnd = Date.now() + duration;
+            const isMist = document.body.classList.contains('theme-mist');
+            const colors = isMist ? ['#5F8D84', '#7DAEA5', '#ffffff', '#8B6914'] : ['#B05D67', '#C5A065', '#ffffff', '#E8D3D5'];
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 2000, colors: colors };
+            function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+            const interval = setInterval(function () {
+                const timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) return clearInterval(interval);
+                const particleCount = 50 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+        actionBtn.addEventListener('click', function () { this.classList.add('burst'); setTimeout(() => this.classList.remove('burst'), 600); triggerConfetti(); openModal(); });
+        closeModalBtn.addEventListener('click', closeModal);
+        modal.addEventListener('mousedown', function (e) { if (e.target === modal) closeModal(); }); // 使用 mousedown 避免拖拽时误关闭 
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('modal-active')) closeModal(); });
+
+        const musicToggle = document.getElementById('musicToggle'); const bgMusic = document.getElementById('bgMusic'); const musicToast = document.getElementById('musicToast');
+        let isPlaying = false; let toastTimer; let autoplayAttempts = 0; let autoplayLocked = false;
+        function showMusicToast() {
+            clearTimeout(toastTimer); musicToast.classList.add('show'); toastTimer = setTimeout(() => musicToast.classList.remove('show'), 4000);
+        }
+        function startMusic(isAuto = false) {
+            if (isAuto && autoplayLocked) return;
+            bgMusic.volume = 0.35; bgMusic.loop = true; bgMusic.autoplay = true;
+            bgMusic.play().then(() => { if (isAuto) { autoplayLocked = true; autoplayAttempts = 0; } }).catch(e => {
+                if (isAuto && autoplayAttempts < 3) { autoplayAttempts += 1; setTimeout(() => startMusic(true), 800); }
+                console.log('Autoplay prevented:', e);
+            });
+        }
+        function autoPlayWithRetry() { autoplayAttempts = 0; startMusic(true); }
+        bgMusic.addEventListener('play', function () {
+            isPlaying = true; musicToggle.classList.add('playing'); showMusicToast();
+        });
+        bgMusic.addEventListener('pause', function () {
+            isPlaying = false; musicToggle.classList.remove('playing'); musicToast.classList.remove('show'); clearTimeout(toastTimer);
+        });
+        musicToggle.addEventListener('click', function () {
+            if (bgMusic.paused) { startMusic(); }
+            else { bgMusic.pause(); autoplayLocked = true; }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            checkAnniversaryTheme();
+            updateDateDisplay();
+            handleEntrance(); // 绑定入场按钮点击事件
+            setInterval(updateTimer, 1000);
+            updateTimer();
+            // 移除自动播放尝试，改为用户点击后播放
+            let scrollTimeout;
+            window.addEventListener('scroll', function () {
+                if (!scrollTimeout) {
+                    scrollTimeout = setTimeout(function () { handleScroll(); scrollTimeout = null; }, 16);
+                }
+            }, { passive: true });
+            handleScroll();
+        });
+        // 移除 window.load 和 visibilitychange 的自动播放逻辑
+
+        let lastTap = 0; document.addEventListener('touchend', function (e) {
+            const currentTime = new Date().getTime(); const tapLength = currentTime - lastTap;
+            const isMist = document.body.classList.contains('theme-mist');
+            const colors = isMist ? ['#5F8D84', '#7DAEA5', '#ffffff'] : ['#B05D67', '#C5A065', '#ffffff'];
+            if (tapLength < 300 && tapLength > 0) { confetti({ particleCount: 30, spread: 60, origin: { x: e.changedTouches[0].clientX / window.innerWidth, y: e.changedTouches[0].clientY / window.innerHeight }, colors: colors }); }
+            lastTap = currentTime;
+        });
+        document.addEventListener('dblclick', function (e) {
+            if (e.target.closest('button') || e.target.closest('a')) return;
+            const isMist = document.body.classList.contains('theme-mist');
+            const colors = isMist ? ['#5F8D84', '#7DAEA5', '#ffffff'] : ['#B05D67', '#C5A065', '#ffffff'];
+            confetti({ particleCount: 30, spread: 60, origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight }, colors: colors });
+        });
+    </script>
+</body>
+
+</html>
