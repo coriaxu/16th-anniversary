@@ -919,11 +919,11 @@
 <body class="antialiased relative" tabindex="0">
     <div class="scroll-progress" id="scrollProgress"></div>
 
-    <div class="entrance-overlay" id="entranceOverlay">
-        <img src="ruby_heart_transparent.png" alt="Love Heart" class="entrance-heart-img">
-        <p class="entrance-title">熊老婆，我们已经走过 16 年啦！</p>
-        <p class="entrance-subtitle">感恩有你 ❤️</p>
-        <button class="entrance-btn" id="entranceBtn">
+    <div class="entrance-overlay" id="entranceOverlay" role="region" aria-label="欢迎页面">
+        <img src="ruby_heart_transparent.png" alt="红宝石爱心图标，象征16年的爱情" class="entrance-heart-img">
+        <p class="entrance-title" id="entranceTitle">熊老婆，我们已经走过 16 年啦！</p>
+        <p class="entrance-subtitle" id="entranceSubtitle">感恩有你 ❤️</p>
+        <button class="entrance-btn" id="entranceBtn" aria-describedby="entranceTitle entranceSubtitle">
             <span>开启时光之旅</span>
         </button>
     </div>
@@ -938,14 +938,14 @@
         <span>正在播放：遇见 (Piano Ver.) - 孙燕姿</span>
     </div>
 
-    <button class="music-toggle" id="musicToggle" aria-label="Toggle background music">
-        <span class="music-icon-off">
+    <button class="music-toggle" id="musicToggle" aria-label="播放或暂停背景音乐" aria-pressed="false" role="switch">
+        <span class="music-icon-off" aria-hidden="true">
             <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M9 12H4m5 0v4m0-4V8m5 4h6"></path>
             </svg>
         </span>
-        <span class="music-icon-on">
+        <span class="music-icon-on" aria-hidden="true">
             <div class="sound-wave"><span></span><span></span><span></span><span></span><span></span></div>
         </span>
     </button>
@@ -1145,8 +1145,9 @@
     </section>
 
     <!-- 模态框：加了内联 style="display: none;" 确保绝对隐藏 -->
-    <div id="modal" class="modal-backdrop" role="dialog" aria-modal="true" style="display: none;">
-        <div class="modal-content" id="modal-content-inner" tabindex="-1">
+    <div id="modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title"
+        aria-describedby="modal-description" style="display: none;">
+        <div class="modal-content" id="modal-content-inner" tabindex="-1" role="document">
             <button id="closeModalBtn" class="close-btn" aria-label="关闭">
                 <span class="text-2xl text-gray-600" aria-hidden="true">&times;</span>
             </button>
@@ -1161,7 +1162,7 @@
                 <div class="text-center px-2 relative z-10">
                     <h3 id="modal-title" class="text-primary font-bold text-lg mb-2 eng-label">Contract Renewed</h3>
                     <div class="h-[1px] w-12 bg-gray-200 mx-auto my-4"></div>
-                    <p class="text-sm text-[var(--ink-grey)] eng-title leading-loose italic">
+                    <p id="modal-description" class="text-sm text-[var(--ink-grey)] eng-title leading-loose italic">
                         "只要和你在一起，<br>无时无刻不从容。"
                     </p>
                     <div class="mt-6 p-3 bg-white/50 rounded-lg">
@@ -1266,7 +1267,8 @@
             document.getElementById('seconds-counter').textContent = seconds;
             const totalMinutes = BigInt(Math.floor(distance / (1000 * 60)));
             const heartbeats = totalMinutes * 75n; // 使用 BigInt 避免大数精度问题
-            document.getElementById('heartbeat-counter').textContent = heartbeats.toLocaleString();
+            // 直接显示纯数字,不添加分隔符
+            document.getElementById('heartbeat-counter').textContent = heartbeats.toString();
         }
         function handleScroll() {
             const scrollTop = window.scrollY; const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -1340,10 +1342,10 @@
         }
         function autoPlayWithRetry() { autoplayAttempts = 0; startMusic(true); }
         bgMusic.addEventListener('play', function () {
-            isPlaying = true; musicToggle.classList.add('playing'); showMusicToast();
+            isPlaying = true; musicToggle.classList.add('playing'); musicToggle.setAttribute('aria-pressed', 'true'); showMusicToast();
         });
         bgMusic.addEventListener('pause', function () {
-            isPlaying = false; musicToggle.classList.remove('playing'); musicToast.classList.remove('show'); clearTimeout(toastTimer);
+            isPlaying = false; musicToggle.classList.remove('playing'); musicToggle.setAttribute('aria-pressed', 'false'); musicToast.classList.remove('show'); clearTimeout(toastTimer);
         });
         musicToggle.addEventListener('click', function () {
             if (bgMusic.paused) { startMusic(); }
