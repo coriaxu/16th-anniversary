@@ -914,32 +914,119 @@
             }
         }
 
-        /* ============ 城市足迹卡片样式 ============ */
+        /* ============ 城市足迹卡片样式 - 电影级视觉 ============ */
         .city-card {
             position: relative;
-            background: linear-gradient(135deg, #ffffff 0%, #fdfbf7 100%);
-            border: 1px solid rgba(184, 146, 85, 0.15);
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background:
+                linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(253, 251, 247, 0.9) 100%),
+                radial-gradient(ellipse at top left, rgba(176, 93, 103, 0.08), transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(232, 211, 213, 0.12), transparent 50%);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow:
+                0 1px 1px rgba(0,0,0,0.025),
+                0 2px 2px rgba(0,0,0,0.025),
+                0 4px 4px rgba(0,0,0,0.025),
+                0 8px 8px rgba(0,0,0,0.025),
+                0 16px 16px rgba(0,0,0,0.025),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.3);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             overflow: hidden;
+            transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+        }
+
+        .city-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.8) 0%,
+                rgba(176, 93, 103, 0.15) 50%,
+                rgba(232, 211, 213, 0.2) 100%);
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
+            z-index: -1;
+            filter: blur(12px);
+        }
+
+        .city-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.15) 50%,
+                transparent 70%);
+            transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            transition: transform 0.8s ease;
+            pointer-events: none;
         }
 
         .city-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(176, 93, 103, 0.15);
-            border-color: var(--primary-color);
+            transform: perspective(1000px) translateY(-8px) scale(1.02);
+            box-shadow:
+                0 2px 4px rgba(0,0,0,0.03),
+                0 4px 8px rgba(0,0,0,0.03),
+                0 8px 16px rgba(0,0,0,0.03),
+                0 16px 32px rgba(0,0,0,0.03),
+                0 24px 48px rgba(176, 93, 103, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 1),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.5);
+            border-color: rgba(176, 93, 103, 0.3);
         }
 
+        .city-card:hover::before {
+            opacity: 1;
+        }
+
+        .city-card:hover::after {
+            transform: translateX(100%) translateY(100%) rotate(45deg);
+        }
+
+        /* 北京 - 家的特殊设计 */
         .city-card-home {
-            background: linear-gradient(135deg, #FFFDF8 0%, #FFF8E7 100%);
-            border-color: rgba(139, 105, 20, 0.2);
+            background:
+                linear-gradient(135deg, rgba(255, 253, 248, 0.98) 0%, rgba(255, 248, 231, 0.95) 100%),
+                radial-gradient(ellipse at top left, rgba(139, 105, 20, 0.12), transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(197, 160, 101, 0.15), transparent 50%);
+            border-color: rgba(197, 160, 101, 0.3);
+            box-shadow:
+                0 1px 1px rgba(139,105,20,0.02),
+                0 2px 2px rgba(139,105,20,0.02),
+                0 4px 4px rgba(139,105,20,0.02),
+                0 8px 8px rgba(139,105,20,0.02),
+                0 16px 16px rgba(139,105,20,0.03),
+                0 24px 32px rgba(139,105,20,0.04),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        }
+
+        .city-card-home::before {
+            background: linear-gradient(135deg,
+                rgba(255, 248, 231, 0.9) 0%,
+                rgba(139, 105, 20, 0.2) 50%,
+                rgba(197, 160, 101, 0.25) 100%);
         }
 
         .city-card-home:hover {
-            border-color: var(--text-gold);
-            box-shadow: 0 12px 40px rgba(139, 105, 20, 0.15);
+            border-color: rgba(139, 105, 20, 0.4);
+            box-shadow:
+                0 4px 8px rgba(139,105,20,0.04),
+                0 8px 16px rgba(139,105,20,0.04),
+                0 16px 32px rgba(139,105,20,0.06),
+                0 24px 48px rgba(139,105,20,0.08),
+                0 32px 64px rgba(139,105,20,0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 1);
         }
 
         .city-card-content {
@@ -947,89 +1034,192 @@
             z-index: 2;
         }
 
+        /* 装饰性光效 */
         .city-card-decoration {
             position: absolute;
-            bottom: -20px;
-            right: -20px;
-            width: 120px;
-            height: 120px;
-            background: radial-gradient(circle, var(--light-color) 0%, transparent 70%);
-            opacity: 0.3;
-            transition: opacity 0.4s ease;
+            bottom: -40px;
+            right: -40px;
+            width: 250px;
+            height: 250px;
+            background:
+                radial-gradient(circle, var(--light-color) 0%, transparent 50%),
+                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.5), transparent 40%);
+            opacity: 0.15;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             pointer-events: none;
+            filter: blur(60px);
+            mix-blend-mode: soft-light;
         }
 
         .city-card:hover .city-card-decoration {
-            opacity: 0.5;
+            opacity: 0.3;
+            transform: scale(1.3) rotate(45deg);
+            filter: blur(70px);
         }
 
+        /* 徽章样式 - 精致设计 */
         .city-badge {
             display: inline-block;
             background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
             color: white;
-            padding: 0.35rem 0.75rem;
+            padding: 0.4rem 1rem;
             border-radius: 999px;
             font-size: 0.7rem;
             font-weight: 600;
-            letter-spacing: 0.05em;
-            box-shadow: 0 2px 8px rgba(176, 93, 103, 0.3);
+            letter-spacing: 0.08em;
+            box-shadow:
+                0 2px 4px rgba(176, 93, 103, 0.2),
+                0 4px 8px rgba(176, 93, 103, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .city-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .city-card:hover .city-badge::before {
+            left: 100%;
         }
 
         .city-badge-spring {
-            background: linear-gradient(135deg, #FF6B9D, #FFA07A);
+            background: linear-gradient(135deg, #FF6B9D 0%, #FFA07A 100%);
+            box-shadow:
+                0 2px 4px rgba(255, 107, 157, 0.2),
+                0 4px 8px rgba(255, 107, 157, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
         .city-badge-music {
-            background: linear-gradient(135deg, #9D50BB, #6E48AA);
+            background: linear-gradient(135deg, #9D50BB 0%, #6E48AA 100%);
             font-size: 0.85rem;
+            padding: 0.45rem 1.1rem;
+            box-shadow:
+                0 2px 4px rgba(157, 80, 187, 0.25),
+                0 4px 8px rgba(157, 80, 187, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
         .city-badge-journey {
-            background: linear-gradient(135deg, #F79D00, #64f38c);
-            padding: 0.4rem 1rem;
+            background: linear-gradient(135deg, #F79D00 0%, #FFB347 50%, #64f38c 100%);
+            padding: 0.5rem 1.2rem;
+            box-shadow:
+                0 2px 4px rgba(247, 157, 0, 0.25),
+                0 4px 8px rgba(247, 157, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
         .city-badge-autumn {
-            background: linear-gradient(135deg, #FF512F, #DD2476);
+            background: linear-gradient(135deg, #FF512F 0%, #DD2476 100%);
+            box-shadow:
+                0 2px 4px rgba(255, 81, 47, 0.25),
+                0 4px 8px rgba(255, 81, 47, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
-        /* 特殊卡片样式 */
+        /* 特殊卡片 - 上海演唱会 */
         .city-card-special {
-            background: linear-gradient(135deg, #FFF5F8 0%, #F9F0FF 100%);
-            border-color: rgba(157, 80, 187, 0.2);
+            background:
+                linear-gradient(135deg, rgba(255, 245, 248, 0.98) 0%, rgba(249, 240, 255, 0.95) 100%),
+                radial-gradient(ellipse at top left, rgba(157, 80, 187, 0.12), transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(110, 72, 170, 0.15), transparent 50%);
+            border-color: rgba(157, 80, 187, 0.3);
+        }
+
+        .city-card-special::before {
+            background: linear-gradient(135deg,
+                rgba(249, 240, 255, 0.9) 0%,
+                rgba(157, 80, 187, 0.2) 50%,
+                rgba(110, 72, 170, 0.25) 100%);
         }
 
         .city-card-special:hover {
-            border-color: #9D50BB;
-            box-shadow: 0 12px 40px rgba(157, 80, 187, 0.15);
+            border-color: rgba(157, 80, 187, 0.4);
+            box-shadow:
+                0 4px 8px rgba(157,80,187,0.04),
+                0 8px 16px rgba(157,80,187,0.04),
+                0 16px 32px rgba(157,80,187,0.06),
+                0 24px 48px rgba(157,80,187,0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 1);
         }
 
+        /* 旅程卡片 */
         .city-card-journey {
-            background: linear-gradient(135deg, #FFFAF0 0%, #FFF8DC 100%);
-            border-color: rgba(247, 157, 0, 0.2);
+            background:
+                linear-gradient(135deg, rgba(255, 250, 240, 0.98) 0%, rgba(255, 248, 220, 0.95) 100%),
+                radial-gradient(ellipse at top left, rgba(247, 157, 0, 0.12), transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(255, 179, 71, 0.15), transparent 50%);
+            border-color: rgba(247, 157, 0, 0.3);
+        }
+
+        .city-card-journey::before {
+            background: linear-gradient(135deg,
+                rgba(255, 248, 220, 0.9) 0%,
+                rgba(247, 157, 0, 0.2) 50%,
+                rgba(255, 179, 71, 0.25) 100%);
         }
 
         .city-card-journey:hover {
-            border-color: #F79D00;
-            box-shadow: 0 12px 40px rgba(247, 157, 0, 0.15);
+            border-color: rgba(247, 157, 0, 0.4);
+            box-shadow:
+                0 4px 8px rgba(247,157,0,0.04),
+                0 8px 16px rgba(247,157,0,0.04),
+                0 16px 32px rgba(247,157,0,0.06),
+                0 24px 48px rgba(247,157,0,0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 1);
         }
 
-        /* 旅程城市标签 */
+        /* 旅程城市标签 - 精致版 */
         .journey-city-tag {
             display: inline-block;
-            background: rgba(247, 157, 0, 0.1);
+            background: rgba(247, 157, 0, 0.08);
             color: var(--text-gold);
-            padding: 0.25rem 0.75rem;
+            padding: 0.4rem 1rem;
             border-radius: 999px;
             font-size: 0.75rem;
             font-weight: 600;
-            border: 1px solid rgba(247, 157, 0, 0.2);
-            transition: all 0.3s ease;
+            border: 1px solid rgba(247, 157, 0, 0.25);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow:
+                0 1px 2px rgba(247, 157, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .journey-city-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
         }
 
         .journey-city-tag:hover {
-            background: rgba(247, 157, 0, 0.2);
+            background: rgba(247, 157, 0, 0.15);
             transform: translateY(-2px);
+            box-shadow:
+                0 2px 4px rgba(247, 157, 0, 0.15),
+                0 4px 8px rgba(247, 157, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            border-color: rgba(247, 157, 0, 0.35);
+        }
+
+        .journey-city-tag:hover::before {
+            transform: translateX(100%);
         }
 
         /* 统计信息 */
