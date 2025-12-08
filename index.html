@@ -994,28 +994,182 @@
             transform: translateX(100%) translateY(100%) rotate(45deg);
         }
 
-        /* 北京 - 家的特殊设计 */
-        .city-card-home {
+        /* ============ 省份主题色系 ============ */
+
+        /* 北京 - 金色（家） */
+        .city-card-beijing {
             background:
                 linear-gradient(135deg, rgba(255, 253, 248, 0.98) 0%, rgba(255, 248, 231, 0.95) 100%),
                 radial-gradient(ellipse at top left, rgba(139, 105, 20, 0.12), transparent 50%),
                 radial-gradient(ellipse at bottom right, rgba(197, 160, 101, 0.15), transparent 50%);
             border-color: rgba(197, 160, 101, 0.3);
-            box-shadow:
-                0 1px 1px rgba(139,105,20,0.02),
-                0 2px 2px rgba(139,105,20,0.02),
-                0 4px 4px rgba(139,105,20,0.02),
-                0 8px 8px rgba(139,105,20,0.02),
-                0 16px 16px rgba(139,105,20,0.03),
-                0 24px 32px rgba(139,105,20,0.04),
-                inset 0 1px 0 rgba(255, 255, 255, 0.9);
         }
 
-        .city-card-home::before {
+        .city-card-beijing::before {
             background: linear-gradient(135deg,
                 rgba(255, 248, 231, 0.9) 0%,
                 rgba(139, 105, 20, 0.2) 50%,
                 rgba(197, 160, 101, 0.25) 100%);
+        }
+
+        /* 安徽 - 粉红色（春节） */
+        .city-card-anhui {
+            background:
+                linear-gradient(135deg, rgba(255, 245, 250, 0.98) 0%, rgba(252, 231, 243, 0.95) 100%),
+                radial-gradient(ellipse at top left, rgba(219, 39, 119, 0.08), transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(236, 72, 153, 0.10), transparent 50%);
+            border-color: rgba(236, 72, 153, 0.25);
+        }
+
+        .city-card-anhui::before {
+            background: linear-gradient(135deg,
+                rgba(255, 245, 250, 0.9) 0%,
+                rgba(219, 39, 119, 0.15) 50%,
+                rgba(236, 72, 153, 0.18) 100%);
+        }
+
+        /* 江苏 - 蓝紫色 */
+        .city-card-jiangsu {
+            background:
+                linear-gradient(135deg, rgba(245, 247, 255, 0.98) 0%, rgba(237, 242, 255, 0.95) 100%),
+                radial-gradient(ellipse at top left, rgba(79, 70, 229, 0.08), transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(99, 102, 241, 0.10), transparent 50%);
+            border-color: rgba(99, 102, 241, 0.25);
+        }
+
+        .city-card-jiangsu::before {
+            background: linear-gradient(135deg,
+                rgba(245, 247, 255, 0.9) 0%,
+                rgba(79, 70, 229, 0.15) 50%,
+                rgba(99, 102, 241, 0.18) 100%);
+        }
+
+        /* 上海 - 紫色（演唱会） */
+        .city-card-shanghai {
+            background:
+                linear-gradient(135deg, rgba(250, 245, 255, 0.98) 0%, rgba(243, 232, 255, 0.95) 100%),
+                radial-gradient(ellipse at top left, rgba(147, 51, 234, 0.10), transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(168, 85, 247, 0.12), transparent 50%);
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+
+        .city-card-shanghai::before {
+            background: linear-gradient(135deg,
+                rgba(250, 245, 255, 0.9) 0%,
+                rgba(147, 51, 234, 0.18) 50%,
+                rgba(168, 85, 247, 0.22) 100%);
+        }
+
+        /* 宁夏 - 黄土色 */
+        .city-card-ningxia {
+            background:
+                linear-gradient(135deg, rgba(254, 252, 245, 0.98) 0%, rgba(254, 243, 199, 0.95) 100%),
+                radial-gradient(ellipse at top left, rgba(180, 83, 9, 0.08), transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(217, 119, 6, 0.10), transparent 50%);
+            border-color: rgba(217, 119, 6, 0.25);
+        }
+
+        .city-card-ningxia::before {
+            background: linear-gradient(135deg,
+                rgba(254, 252, 245, 0.9) 0%,
+                rgba(180, 83, 9, 0.15) 50%,
+                rgba(217, 119, 6, 0.18) 100%);
+        }
+
+        /* 甘肃 - 丹霞橙红色 */
+        .city-card-gansu {
+            background:
+                linear-gradient(135deg, rgba(255, 247, 243, 0.98) 0%, rgba(254, 237, 227, 0.95) 100%),
+                radial-gradient(ellipse at top left, rgba(234, 88, 12, 0.10), transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(249, 115, 22, 0.12), transparent 50%);
+            border-color: rgba(249, 115, 22, 0.28);
+        }
+
+        .city-card-gansu::before {
+            background: linear-gradient(135deg,
+                rgba(255, 247, 243, 0.9) 0%,
+                rgba(234, 88, 12, 0.18) 50%,
+                rgba(249, 115, 22, 0.22) 100%);
+        }
+
+        /* 青海 - 青绿色 */
+        .city-card-qinghai {
+            background:
+                linear-gradient(135deg, rgba(236, 254, 249, 0.98) 0%, rgba(209, 250, 237, 0.95) 100%),
+                radial-gradient(ellipse at top left, rgba(5, 150, 105, 0.08), transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(16, 185, 129, 0.10), transparent 50%);
+            border-color: rgba(16, 185, 129, 0.25);
+        }
+
+        .city-card-qinghai::before {
+            background: linear-gradient(135deg,
+                rgba(236, 254, 249, 0.9) 0%,
+                rgba(5, 150, 105, 0.15) 50%,
+                rgba(16, 185, 129, 0.18) 100%);
+        }
+
+        /* 山西 - 灰褐色（回家） */
+        .city-card-shanxi {
+            background:
+                linear-gradient(135deg, rgba(250, 250, 249, 0.98) 0%, rgba(245, 243, 240, 0.95) 100%),
+                radial-gradient(ellipse at top left, rgba(87, 83, 78, 0.08), transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(120, 113, 108, 0.10), transparent 50%);
+            border-color: rgba(120, 113, 108, 0.25);
+        }
+
+        .city-card-shanxi::before {
+            background: linear-gradient(135deg,
+                rgba(250, 250, 249, 0.9) 0%,
+                rgba(87, 83, 78, 0.15) 50%,
+                rgba(120, 113, 108, 0.18) 100%);
+        }
+
+        /* 江西 - 青瓷色 */
+        .city-card-jiangxi {
+            background:
+                linear-gradient(135deg, rgba(240, 253, 250, 0.98) 0%, rgba(204, 251, 241, 0.95) 100%),
+                radial-gradient(ellipse at top left, rgba(20, 184, 166, 0.08), transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(45, 212, 191, 0.10), transparent 50%);
+            border-color: rgba(45, 212, 191, 0.25);
+        }
+
+        .city-card-jiangxi::before {
+            background: linear-gradient(135deg,
+                rgba(240, 253, 250, 0.9) 0%,
+                rgba(20, 184, 166, 0.15) 50%,
+                rgba(45, 212, 191, 0.18) 100%);
+        }
+
+        /* 河南 - 橙黄色 */
+        .city-card-henan {
+            background:
+                linear-gradient(135deg, rgba(255, 251, 235, 0.98) 0%, rgba(254, 243, 199, 0.95) 100%),
+                radial-gradient(ellipse at top left, rgba(245, 158, 11, 0.08), transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(251, 191, 36, 0.10), transparent 50%);
+            border-color: rgba(251, 191, 36, 0.25);
+        }
+
+        .city-card-henan::before {
+            background: linear-gradient(135deg,
+                rgba(255, 251, 235, 0.9) 0%,
+                rgba(245, 158, 11, 0.15) 50%,
+                rgba(251, 191, 36, 0.18) 100%);
+        }
+
+        /* 福建 - 海蓝色 */
+        .city-card-fujian {
+            background:
+                linear-gradient(135deg, rgba(240, 249, 255, 0.98) 0%, rgba(224, 242, 254, 0.95) 100%),
+                radial-gradient(ellipse at top left, rgba(14, 165, 233, 0.08), transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(56, 189, 248, 0.10), transparent 50%);
+            border-color: rgba(56, 189, 248, 0.25);
+        }
+
+        .city-card-fujian::before {
+            background: linear-gradient(135deg,
+                rgba(240, 249, 255, 0.9) 0%,
+                rgba(14, 165, 233, 0.15) 50%,
+                rgba(56, 189, 248, 0.18) 100%);
         }
 
         .city-card-home:hover {
@@ -1123,6 +1277,33 @@
             box-shadow:
                 0 2px 4px rgba(255, 81, 47, 0.25),
                 0 4px 8px rgba(255, 81, 47, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        .city-badge-mayday {
+            background: linear-gradient(135deg, #F79D00 0%, #FFB347 50%, #64f38c 100%);
+            padding: 0.5rem 1.2rem;
+            box-shadow:
+                0 2px 4px rgba(247, 157, 0, 0.25),
+                0 4px 8px rgba(247, 157, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        .city-badge-national {
+            background: linear-gradient(135deg, #FF512F 0%, #F09819 100%);
+            padding: 0.5rem 1.2rem;
+            box-shadow:
+                0 2px 4px rgba(255, 81, 47, 0.25),
+                0 4px 8px rgba(255, 81, 47, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        .city-badge-home {
+            background: linear-gradient(135deg, #78716c 0%, #a8a29e 100%);
+            padding: 0.5rem 1.2rem;
+            box-shadow:
+                0 2px 4px rgba(120, 113, 108, 0.25),
+                0 4px 8px rgba(120, 113, 108, 0.2),
                 inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
@@ -1508,17 +1689,15 @@
             </div>
 
             <!-- 城市卡片网格 -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
                 <!-- 北京 - 家 -->
-                <div class="city-card city-card-home animate-fade-up group">
+                <div class="city-card city-card-beijing animate-fade-up group">
                     <div class="absolute top-4 right-4">
                         <div class="text-3xl">🏠</div>
                     </div>
                     <div class="city-card-content">
-                        <div class="flex items-baseline gap-3 mb-2">
-                            <h4 class="text-2xl font-bold text-gold-enhanced">北京</h4>
-                        </div>
-                        <p class="text-xs text-gray-500 mb-2 eng-label">常驻城市</p>
+                        <h4 class="text-2xl font-bold text-amber-700 mb-2">北京</h4>
+                        <p class="text-xs text-amber-600 mb-2 eng-label">常驻城市</p>
                         <p class="text-sm text-gray-700 leading-relaxed">
                             我们的家，温暖的港湾
                         </p>
@@ -1526,16 +1705,14 @@
                     <div class="city-card-decoration"></div>
                 </div>
 
-                <!-- 宣城 -->
-                <div class="city-card animate-fade-up group" style="transition-delay: 0.05s">
+                <!-- 宣城 - 安徽 -->
+                <div class="city-card city-card-anhui animate-fade-up group" style="transition-delay: 0.05s">
                     <div class="absolute top-4 right-4">
                         <span class="city-badge city-badge-spring">春节</span>
                     </div>
                     <div class="city-card-content">
-                        <div class="flex items-baseline gap-3 mb-2">
-                            <h4 class="text-2xl font-bold text-primary">宣城</h4>
-                        </div>
-                        <p class="text-xs text-gray-500 mb-2 eng-label">2025 年 1 月</p>
+                        <h4 class="text-2xl font-bold text-pink-600 mb-2">宣城</h4>
+                        <p class="text-xs text-pink-500 mb-2 eng-label">安徽 · 2025 年 1 月</p>
                         <p class="text-sm text-gray-700 leading-relaxed">
                             春节团圆，年味十足
                         </p>
@@ -1543,16 +1720,14 @@
                     <div class="city-card-decoration"></div>
                 </div>
 
-                <!-- 南京 -->
-                <div class="city-card animate-fade-up group" style="transition-delay: 0.1s">
+                <!-- 南京 - 江苏 -->
+                <div class="city-card city-card-jiangsu animate-fade-up group" style="transition-delay: 0.1s">
                     <div class="absolute top-4 right-4">
                         <span class="city-badge city-badge-spring">春节</span>
                     </div>
                     <div class="city-card-content">
-                        <div class="flex items-baseline gap-3 mb-2">
-                            <h4 class="text-2xl font-bold text-primary">南京</h4>
-                        </div>
-                        <p class="text-xs text-gray-500 mb-2 eng-label">2025 年 1 月</p>
+                        <h4 class="text-2xl font-bold text-indigo-600 mb-2">南京</h4>
+                        <p class="text-xs text-indigo-500 mb-2 eng-label">江苏 · 2025 年 1 月</p>
                         <p class="text-sm text-gray-700 leading-relaxed">
                             六朝古都，历史韵味
                         </p>
@@ -1560,13 +1735,11 @@
                     <div class="city-card-decoration"></div>
                 </div>
 
-                <!-- 扬州 -->
-                <div class="city-card animate-fade-up group" style="transition-delay: 0.15s">
+                <!-- 扬州 - 江苏 -->
+                <div class="city-card city-card-jiangsu animate-fade-up group" style="transition-delay: 0.15s">
                     <div class="city-card-content">
-                        <div class="flex items-baseline gap-3 mb-2">
-                            <h4 class="text-2xl font-bold text-primary">扬州</h4>
-                        </div>
-                        <p class="text-xs text-gray-500 mb-2 eng-label">2025 年 2 月</p>
+                        <h4 class="text-2xl font-bold text-indigo-600 mb-2">扬州</h4>
+                        <p class="text-xs text-indigo-500 mb-2 eng-label">江苏 · 2025 年 2 月</p>
                         <p class="text-sm text-gray-700 leading-relaxed">
                             烟花三月下扬州
                         </p>
@@ -1575,15 +1748,13 @@
                 </div>
 
                 <!-- 上海 - 演唱会 -->
-                <div class="city-card city-card-special animate-fade-up group" style="transition-delay: 0.2s">
+                <div class="city-card city-card-shanghai animate-fade-up group" style="transition-delay: 0.2s">
                     <div class="absolute top-4 right-4">
                         <span class="city-badge city-badge-music">🎤</span>
                     </div>
                     <div class="city-card-content">
-                        <div class="flex items-baseline gap-3 mb-2">
-                            <h4 class="text-2xl font-bold text-primary">上海</h4>
-                        </div>
-                        <p class="text-xs text-gray-500 mb-2 eng-label">2025 年 4 月</p>
+                        <h4 class="text-2xl font-bold text-purple-600 mb-2">上海</h4>
+                        <p class="text-xs text-purple-500 mb-2 eng-label">2025 年 4 月</p>
                         <p class="text-sm text-gray-700 leading-relaxed">
                             孙燕姿演唱会，遇见最美的声音
                         </p>
@@ -1591,37 +1762,89 @@
                     <div class="city-card-decoration"></div>
                 </div>
 
-                <!-- 西北大环线 - 跨列特殊卡片 -->
-                <div class="city-card city-card-journey animate-fade-up group lg:col-span-3" style="transition-delay: 0.25s">
+                <!-- 银川 - 宁夏（五一假期） -->
+                <div class="city-card city-card-ningxia animate-fade-up group" style="transition-delay: 0.25s">
                     <div class="absolute top-4 right-4">
-                        <span class="city-badge city-badge-journey">🚗 大环线</span>
+                        <span class="city-badge city-badge-mayday">五一假期</span>
                     </div>
                     <div class="city-card-content">
-                        <div class="flex items-baseline gap-3 mb-3">
-                            <h4 class="text-2xl font-bold text-primary">西北大环线</h4>
-                        </div>
-                        <p class="text-xs text-gray-500 mb-3 eng-label">2025 年 5 月</p>
-                        <div class="flex flex-wrap gap-3 mb-3">
-                            <span class="journey-city-tag">银川</span>
-                            <span class="journey-city-tag">张掖</span>
-                            <span class="journey-city-tag">武威</span>
-                            <span class="journey-city-tag">嘉峪关</span>
-                            <span class="journey-city-tag">西宁</span>
-                        </div>
+                        <h4 class="text-2xl font-bold text-amber-600 mb-2">银川</h4>
+                        <p class="text-xs text-amber-500 mb-2 eng-label">宁夏 · 2025 年 5 月</p>
                         <p class="text-sm text-gray-700 leading-relaxed">
-                            穿越大漠戈壁，领略西北风光。从宁夏到甘肃，从丹霞到草原，五城连线，千里征程。
+                            塞上江南，黄河明珠
                         </p>
                     </div>
                     <div class="city-card-decoration"></div>
                 </div>
 
-                <!-- 广灵 -->
-                <div class="city-card animate-fade-up group" style="transition-delay: 0.3s">
+                <!-- 张掖 - 甘肃（五一假期） -->
+                <div class="city-card city-card-gansu animate-fade-up group" style="transition-delay: 0.3s">
+                    <div class="absolute top-4 right-4">
+                        <span class="city-badge city-badge-mayday">五一假期</span>
+                    </div>
                     <div class="city-card-content">
-                        <div class="flex items-baseline gap-3 mb-2">
-                            <h4 class="text-2xl font-bold text-primary">广灵</h4>
-                        </div>
-                        <p class="text-xs text-gray-500 mb-2 eng-label">2025 年 6 月</p>
+                        <h4 class="text-2xl font-bold text-orange-600 mb-2">张掖</h4>
+                        <p class="text-xs text-orange-500 mb-2 eng-label">甘肃 · 2025 年 5 月</p>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            丹霞地貌，色彩斑斓
+                        </p>
+                    </div>
+                    <div class="city-card-decoration"></div>
+                </div>
+
+                <!-- 武威 - 甘肃（五一假期） -->
+                <div class="city-card city-card-gansu animate-fade-up group" style="transition-delay: 0.35s">
+                    <div class="absolute top-4 right-4">
+                        <span class="city-badge city-badge-mayday">五一假期</span>
+                    </div>
+                    <div class="city-card-content">
+                        <h4 class="text-2xl font-bold text-orange-600 mb-2">武威</h4>
+                        <p class="text-xs text-orange-500 mb-2 eng-label">甘肃 · 2025 年 5 月</p>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            凉州古城，丝路重镇
+                        </p>
+                    </div>
+                    <div class="city-card-decoration"></div>
+                </div>
+
+                <!-- 嘉峪关 - 甘肃（五一假期） -->
+                <div class="city-card city-card-gansu animate-fade-up group" style="transition-delay: 0.4s">
+                    <div class="absolute top-4 right-4">
+                        <span class="city-badge city-badge-mayday">五一假期</span>
+                    </div>
+                    <div class="city-card-content">
+                        <h4 class="text-2xl font-bold text-orange-600 mb-2">嘉峪关</h4>
+                        <p class="text-xs text-orange-500 mb-2 eng-label">甘肃 · 2025 年 5 月</p>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            天下第一雄关，长城西端
+                        </p>
+                    </div>
+                    <div class="city-card-decoration"></div>
+                </div>
+
+                <!-- 西宁 - 青海（五一假期） -->
+                <div class="city-card city-card-qinghai animate-fade-up group" style="transition-delay: 0.45s">
+                    <div class="absolute top-4 right-4">
+                        <span class="city-badge city-badge-mayday">五一假期</span>
+                    </div>
+                    <div class="city-card-content">
+                        <h4 class="text-2xl font-bold text-emerald-600 mb-2">西宁</h4>
+                        <p class="text-xs text-emerald-500 mb-2 eng-label">青海 · 2025 年 5 月</p>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            高原明珠，青藏门户
+                        </p>
+                    </div>
+                    <div class="city-card-decoration"></div>
+                </div>
+
+                <!-- 广灵 - 山西（回家） -->
+                <div class="city-card city-card-shanxi animate-fade-up group" style="transition-delay: 0.5s">
+                    <div class="absolute top-4 right-4">
+                        <span class="city-badge city-badge-home">回家</span>
+                    </div>
+                    <div class="city-card-content">
+                        <h4 class="text-2xl font-bold text-stone-600 mb-2">广灵</h4>
+                        <p class="text-xs text-stone-500 mb-2 eng-label">山西 · 2025 年 6 月</p>
                         <p class="text-sm text-gray-700 leading-relaxed">
                             夏日时光，山水相依
                         </p>
@@ -1629,35 +1852,56 @@
                     <div class="city-card-decoration"></div>
                 </div>
 
-                <!-- 江西三城 - 跨列特殊卡片 -->
-                <div class="city-card city-card-journey animate-fade-up group lg:col-span-2" style="transition-delay: 0.35s">
+                <!-- 南昌 - 江西（十一假期） -->
+                <div class="city-card city-card-jiangxi animate-fade-up group" style="transition-delay: 0.55s">
                     <div class="absolute top-4 right-4">
-                        <span class="city-badge city-badge-autumn">秋游</span>
+                        <span class="city-badge city-badge-national">十一假期</span>
                     </div>
                     <div class="city-card-content">
-                        <div class="flex items-baseline gap-3 mb-3">
-                            <h4 class="text-2xl font-bold text-primary">江西三城</h4>
-                        </div>
-                        <p class="text-xs text-gray-500 mb-3 eng-label">2025 年 10 月</p>
-                        <div class="flex flex-wrap gap-3 mb-3">
-                            <span class="journey-city-tag">南昌</span>
-                            <span class="journey-city-tag">景德镇</span>
-                            <span class="journey-city-tag">庐山</span>
-                        </div>
+                        <h4 class="text-2xl font-bold text-teal-600 mb-2">南昌</h4>
+                        <p class="text-xs text-teal-500 mb-2 eng-label">江西 · 2025 年 10 月</p>
                         <p class="text-sm text-gray-700 leading-relaxed">
-                            探访英雄城南昌，感受千年瓷都魅力，登临庐山望云海
+                            英雄城南昌，赣江明珠
                         </p>
                     </div>
                     <div class="city-card-decoration"></div>
                 </div>
 
-                <!-- 郑州 -->
-                <div class="city-card animate-fade-up group" style="transition-delay: 0.4s">
+                <!-- 景德镇 - 江西（十一假期） -->
+                <div class="city-card city-card-jiangxi animate-fade-up group" style="transition-delay: 0.6s">
+                    <div class="absolute top-4 right-4">
+                        <span class="city-badge city-badge-national">十一假期</span>
+                    </div>
                     <div class="city-card-content">
-                        <div class="flex items-baseline gap-3 mb-2">
-                            <h4 class="text-2xl font-bold text-primary">郑州</h4>
-                        </div>
-                        <p class="text-xs text-gray-500 mb-2 eng-label">2025 年 11 月</p>
+                        <h4 class="text-2xl font-bold text-teal-600 mb-2">景德镇</h4>
+                        <p class="text-xs text-teal-500 mb-2 eng-label">江西 · 2025 年 10 月</p>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            千年瓷都，青瓷之乡
+                        </p>
+                    </div>
+                    <div class="city-card-decoration"></div>
+                </div>
+
+                <!-- 庐山 - 江西（十一假期） -->
+                <div class="city-card city-card-jiangxi animate-fade-up group" style="transition-delay: 0.65s">
+                    <div class="absolute top-4 right-4">
+                        <span class="city-badge city-badge-national">十一假期</span>
+                    </div>
+                    <div class="city-card-content">
+                        <h4 class="text-2xl font-bold text-teal-600 mb-2">庐山</h4>
+                        <p class="text-xs text-teal-500 mb-2 eng-label">江西 · 2025 年 10 月</p>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            登临庐山，望云海茫茫
+                        </p>
+                    </div>
+                    <div class="city-card-decoration"></div>
+                </div>
+
+                <!-- 郑州 - 河南 -->
+                <div class="city-card city-card-henan animate-fade-up group" style="transition-delay: 0.7s">
+                    <div class="city-card-content">
+                        <h4 class="text-2xl font-bold text-yellow-600 mb-2">郑州</h4>
+                        <p class="text-xs text-yellow-500 mb-2 eng-label">河南 · 2025 年 11 月</p>
                         <p class="text-sm text-gray-700 leading-relaxed">
                             中原腹地，古都新貌
                         </p>
@@ -1665,16 +1909,14 @@
                     <div class="city-card-decoration"></div>
                 </div>
 
-                <!-- 厦门 - 最新 -->
-                <div class="city-card animate-fade-up group" style="transition-delay: 0.45s">
+                <!-- 厦门 - 福建 -->
+                <div class="city-card city-card-fujian animate-fade-up group" style="transition-delay: 0.75s">
                     <div class="absolute top-4 right-4">
                         <span class="city-badge">最新</span>
                     </div>
                     <div class="city-card-content">
-                        <div class="flex items-baseline gap-3 mb-2">
-                            <h4 class="text-2xl font-bold text-primary">厦门</h4>
-                        </div>
-                        <p class="text-xs text-gray-500 mb-2 eng-label">2025 年 11 月</p>
+                        <h4 class="text-2xl font-bold text-sky-600 mb-2">厦门</h4>
+                        <p class="text-xs text-sky-500 mb-2 eng-label">福建 · 2025 年 11 月</p>
                         <p class="text-sm text-gray-700 leading-relaxed">
                             海风轻拂，日落如画
                         </p>
