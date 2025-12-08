@@ -913,6 +913,211 @@
                 font-size: 3rem;
             }
         }
+
+        /* ============ 城市地图样式 ============ */
+        .city-map-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(253, 251, 247, 0.9) 100%);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(184, 146, 85, 0.2);
+        }
+
+        .map-svg {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.05));
+        }
+
+        /* 地图底图 */
+        .map-outline {
+            fill: #F5F0EB;
+            stroke: var(--primary-color);
+            stroke-width: 0.5;
+            opacity: 0.4;
+            transition: opacity 0.3s ease;
+        }
+
+        .map-outline:hover {
+            opacity: 0.6;
+        }
+
+        /* 城市连接线 */
+        .journey-line {
+            fill: none;
+            stroke: var(--accent-color);
+            stroke-width: 1.5;
+            stroke-dasharray: 5, 5;
+            opacity: 0.4;
+            animation: dashMove 20s linear infinite;
+        }
+
+        @keyframes dashMove {
+            to {
+                stroke-dashoffset: -100;
+            }
+        }
+
+        /* 城市标点 - 普通城市 */
+        .city-dot {
+            fill: var(--primary-color);
+            stroke: white;
+            stroke-width: 2;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 8px rgba(176, 93, 103, 0.6));
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        .city-dot:hover {
+            fill: var(--accent-color);
+            transform: scale(1.3);
+            filter: drop-shadow(0 0 15px rgba(201, 110, 120, 0.9));
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% {
+                r: 8;
+                opacity: 1;
+            }
+            50% {
+                r: 9;
+                opacity: 0.8;
+            }
+        }
+
+        /* 城市标点 - 北京（家） */
+        .city-home {
+            fill: var(--text-gold);
+            stroke: white;
+            stroke-width: 2.5;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 12px rgba(139, 105, 20, 0.8));
+        }
+
+        .city-home:hover {
+            fill: var(--text-gold-light);
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 20px rgba(166, 124, 82, 1));
+        }
+
+        /* 家的图标 */
+        .home-icon {
+            fill: white;
+            pointer-events: none;
+        }
+
+        /* 悬停信息卡片 */
+        .city-tooltip {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            pointer-events: none;
+            z-index: 100;
+            min-width: 200px;
+            transform: translateY(-10px);
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .city-tooltip.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .city-tooltip h4 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .city-tooltip .tooltip-year {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-gold);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .city-tooltip .tooltip-story {
+            font-size: 0.9rem;
+            color: var(--ink-grey);
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .city-tooltip .tooltip-badge {
+            display: inline-block;
+            background: var(--light-color);
+            color: var(--primary-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-top: 0.5rem;
+        }
+
+        /* 地图统计信息 */
+        .map-stats {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 16px;
+            border: 1px solid rgba(184, 146, 85, 0.15);
+        }
+
+        .map-stats-item {
+            display: inline-block;
+            margin: 0 1.5rem;
+            font-size: 0.9rem;
+            color: var(--ink-grey);
+        }
+
+        .map-stats-number {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: block;
+        }
+
+        /* 响应式优化 */
+        @media (max-width: 768px) {
+            .map-container {
+                padding: 1rem;
+            }
+
+            .city-tooltip {
+                min-width: 160px;
+                padding: 0.75rem 1rem;
+            }
+
+            .city-tooltip h4 {
+                font-size: 1rem;
+            }
+
+            .map-stats-item {
+                display: block;
+                margin: 0.5rem 0;
+            }
+        }
     </style>
 </head>
 
@@ -1119,6 +1324,73 @@
                         <span class="text-sm text-gray-500">days to go</span>
                     </div>
                     <p class="text-xs text-gray-400 mt-4">2026.12.10 · 第17年</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 城市地图 -->
+    <section class="city-map-section py-24 px-6 relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-white/50 via-transparent to-white/50 pointer-events-none"></div>
+
+        <div class="max-w-5xl mx-auto relative z-10">
+            <div class="text-center mb-16 animate-fade-up">
+                <h3 class="text-lg font-bold text-primary tracking-widest eng-label mb-3">我们的足迹地图</h3>
+                <p class="text-sm text-gray-500 eng-title italic">Every journey with you is home</p>
+            </div>
+
+            <div class="map-container animate-fade-up">
+                <!-- SVG 中国地图 -->
+                <svg class="map-svg" viewBox="0 0 1000 800" xmlns="http://www.w3.org/2000/svg">
+                    <!-- 中国地图简化轮廓 -->
+                    <path class="map-outline" d="M 150,200 Q 180,150 250,140 L 320,130 L 380,160 L 450,140 L 520,150 L 580,130 L 650,140 L 720,160 L 780,180 L 820,220 L 850,280 L 870,340 L 880,400 L 870,460 L 850,520 L 820,560 L 780,590 L 720,610 L 650,620 L 580,610 L 520,580 L 460,560 L 400,540 L 340,520 L 280,490 L 220,450 L 180,400 L 160,340 L 150,280 L 150,220 Z"/>
+
+                    <!-- 连接线：北京 → 厦门 -->
+                    <line class="journey-line" x1="550" y1="240" x2="680" y2="480" stroke-linecap="round"/>
+
+                    <!-- 城市标点组 -->
+                    <g id="cities">
+                        <!-- 厦门 - 普通城市点 -->
+                        <circle class="city-dot" cx="680" cy="480" r="8"
+                                data-city="xiamen"
+                                data-name="厦门"
+                                data-year="2025 年 · 上周"
+                                data-story="海风轻拂，日落如画"
+                                data-badge="最新足迹"
+                                aria-label="厦门"/>
+
+                        <!-- 北京 - 家的标识 -->
+                        <g class="city-home-group" data-city="beijing"
+                           data-name="北京"
+                           data-year="常驻城市"
+                           data-story="我们的家，温暖的港湾"
+                           data-badge="🏠 HOME"
+                           aria-label="北京 - 我们的家">
+                            <circle class="city-home" cx="550" cy="240" r="14"/>
+                            <!-- 家的图标 -->
+                            <path class="home-icon" d="M 550,232 L 543,238 L 543,247 L 557,247 L 557,238 Z M 550,228 L 540,236 L 542,236 L 542,249 L 548,249 L 548,242 L 552,242 L 552,249 L 558,249 L 558,236 L 560,236 Z" />
+                        </g>
+                    </g>
+                </svg>
+
+                <!-- 悬停提示卡片 -->
+                <div id="cityTooltip" class="city-tooltip">
+                    <h4 id="tooltipName"></h4>
+                    <div class="tooltip-year" id="tooltipYear"></div>
+                    <p class="tooltip-story" id="tooltipStory"></p>
+                    <span class="tooltip-badge" id="tooltipBadge"></span>
+                </div>
+            </div>
+
+            <!-- 地图统计 -->
+            <div class="map-stats animate-fade-up">
+                <div class="map-stats-item">
+                    <span class="map-stats-number" id="cityCount">2</span>
+                    <span class="eng-label text-xs">Cities Visited</span>
+                </div>
+                <div class="map-stats-item">
+                    <span class="map-stats-number">2025</span>
+                    <span class="eng-label text-xs">This Year</span>
                 </div>
             </div>
         </div>
@@ -1352,12 +1624,133 @@
             else { bgMusic.pause(); autoplayLocked = true; }
         });
 
+        // ============ 城市地图交互 ============
+        function initCityMap() {
+            const tooltip = document.getElementById('cityTooltip');
+            const mapContainer = document.querySelector('.map-container');
+
+            if (!tooltip || !mapContainer) return;
+
+            // 获取所有城市标点（包括普通点和北京的组）
+            const cityDots = document.querySelectorAll('.city-dot');
+            const cityHomeGroup = document.querySelector('.city-home-group');
+
+            // 显示提示卡片
+            function showCityTooltip(element, event) {
+                const name = element.getAttribute('data-name');
+                const year = element.getAttribute('data-year');
+                const story = element.getAttribute('data-story');
+                const badge = element.getAttribute('data-badge');
+
+                document.getElementById('tooltipName').textContent = name;
+                document.getElementById('tooltipYear').textContent = year;
+                document.getElementById('tooltipStory').textContent = story;
+                document.getElementById('tooltipBadge').textContent = badge;
+
+                // 计算卡片位置
+                const mapRect = mapContainer.getBoundingClientRect();
+                const x = event.clientX - mapRect.left;
+                const y = event.clientY - mapRect.top;
+
+                // 确保卡片不超出边界
+                let left = x + 15;
+                let top = y - 80;
+
+                if (left + 220 > mapRect.width) {
+                    left = x - 235;
+                }
+                if (top < 0) {
+                    top = y + 15;
+                }
+
+                tooltip.style.left = left + 'px';
+                tooltip.style.top = top + 'px';
+                tooltip.classList.add('show');
+            }
+
+            // 隐藏提示卡片
+            function hideCityTooltip() {
+                tooltip.classList.remove('show');
+            }
+
+            // 绑定普通城市点事件
+            cityDots.forEach(dot => {
+                dot.addEventListener('mouseenter', function(e) {
+                    showCityTooltip(this, e);
+                });
+
+                dot.addEventListener('mousemove', function(e) {
+                    const mapRect = mapContainer.getBoundingClientRect();
+                    const x = e.clientX - mapRect.left;
+                    const y = e.clientY - mapRect.top;
+
+                    let left = x + 15;
+                    let top = y - 80;
+
+                    if (left + 220 > mapRect.width) {
+                        left = x - 235;
+                    }
+                    if (top < 0) {
+                        top = y + 15;
+                    }
+
+                    tooltip.style.left = left + 'px';
+                    tooltip.style.top = top + 'px';
+                });
+
+                dot.addEventListener('mouseleave', hideCityTooltip);
+
+                // 移动端支持
+                dot.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    showCityTooltip(this, e.touches[0]);
+                    setTimeout(hideCityTooltip, 3000);
+                });
+            });
+
+            // 绑定北京（家）的事件
+            if (cityHomeGroup) {
+                cityHomeGroup.addEventListener('mouseenter', function(e) {
+                    showCityTooltip(this, e);
+                });
+
+                cityHomeGroup.addEventListener('mousemove', function(e) {
+                    const mapRect = mapContainer.getBoundingClientRect();
+                    const x = e.clientX - mapRect.left;
+                    const y = e.clientY - mapRect.top;
+
+                    let left = x + 15;
+                    let top = y - 80;
+
+                    if (left + 220 > mapRect.width) {
+                        left = x - 235;
+                    }
+                    if (top < 0) {
+                        top = y + 15;
+                    }
+
+                    tooltip.style.left = left + 'px';
+                    tooltip.style.top = top + 'px';
+                });
+
+                cityHomeGroup.addEventListener('mouseleave', hideCityTooltip);
+
+                // 移动端支持
+                cityHomeGroup.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    showCityTooltip(this, e.touches[0]);
+                    setTimeout(hideCityTooltip, 3000);
+                });
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             checkAnniversaryTheme();
             updateDateDisplay();
             handleEntrance(); // 绑定入场按钮点击事件
             setInterval(updateTimer, 1000);
             updateTimer();
+            initCityMap(); // 初始化城市地图
             // 移除自动播放尝试，改为用户点击后播放
             let scrollTimeout;
             window.addEventListener('scroll', function () {
