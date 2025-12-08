@@ -629,31 +629,6 @@
             letter-spacing: 0.1em;
         }
 
-        .rose-countdown-card {
-            background: linear-gradient(135deg, #FFF5F5 0%, #FFEAEA 100%);
-            border: 1px solid rgba(176, 93, 103, 0.2);
-            border-radius: 16px;
-            padding: 1.5rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        body.theme-mist .rose-countdown-card {
-            background: linear-gradient(135deg, #F0F7F5 0%, #E6F0EE 100%);
-            border-color: rgba(95, 141, 132, 0.2);
-        }
-
-        .rose-countdown-card::before {
-            content: '🌹';
-            position: absolute;
-            top: -20px;
-            right: -20px;
-            font-size: 80px;
-            opacity: 0.1;
-            transform: rotate(15deg);
-        }
-
         .cta-btn {
             position: relative;
             overflow: visible;
@@ -873,11 +848,6 @@
             .cta-btn {
                 padding: 1.5rem 3rem;
                 font-size: 1.1rem;
-            }
-
-            /* 放大倒计时卡片数字 */
-            #rose-countdown {
-                font-size: 5rem;
             }
 
             /* 卡片间距加大 */
@@ -1959,25 +1929,6 @@
         </div>
     </section>
 
-    <!-- 玫瑰婚倒计时卡片：移动到城市足迹之后，方便优先查看年度足迹 -->
-    <section class="py-20 px-6 relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-white/40 to-transparent pointer-events-none"></div>
-
-        <div class="max-w-6xl mx-auto relative z-10 flex justify-center">
-            <div class="relative animate-fade-up w-full md:w-2/3 lg:w-1/2">
-                <div class="rose-countdown-card">
-                    <p class="text-xs text-primary uppercase tracking-widest eng-label mb-3">Next Station</p>
-                    <h4 class="eng-title text-2xl text-[var(--ink-grey)] italic mb-4">Rose Wedding</h4>
-                    <div class="flex items-center justify-center space-x-2">
-                        <span class="text-4xl num-font text-primary" id="rose-countdown">0</span>
-                        <span class="text-sm text-gray-500">days to go</span>
-                    </div>
-                    <p class="text-xs text-gray-400 mt-4">2026.12.10 · 第17年</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
     <section class="py-24 px-6 bg-[#262626] text-center relative overflow-hidden">
         <div class="absolute inset-0 bg-black/20 pointer-events-none"></div>
@@ -2019,12 +1970,6 @@
                     <p id="modal-description" class="text-sm text-[var(--ink-grey)] eng-title leading-loose italic">
                         "只要和你在一起，<br>无时无刻不从容。"
                     </p>
-                    <div class="mt-6 p-3 bg-white/50 rounded-lg">
-                        <p class="text-xs text-gray-500 flex items-center justify-center gap-2">
-                            <span>🌹</span> 距离玫瑰婚还有 <span class="num-font font-bold text-primary"
-                                id="rose-countdown-modal">0</span> 天
-                        </p>
-                    </div>
                     <p class="text-[10px] text-gray-400 mt-6 uppercase tracking-widest eng-label">Authorized by Minnie
                     </p>
                 </div>
@@ -2035,7 +1980,6 @@
     <script>
         const CONFIG = {
             startDate: new Date('2009-12-10T00:00:00+08:00').getTime(),
-            roseWeddingDate: new Date('2026-12-10T00:00:00+08:00').getTime(),
             entranceDelay: 2500,
             numberAnimationDuration: 2000
         };
@@ -2094,10 +2038,6 @@
                 const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 animateNumber(document.getElementById('days-counter'), days, 2000, false);
                 document.getElementById('days-inline').textContent = days;
-
-                const roseDays = Math.ceil((CONFIG.roseWeddingDate - now) / (1000 * 60 * 60 * 24));
-                animateNumber(document.getElementById('rose-countdown'), roseDays);
-                document.getElementById('rose-countdown-modal').textContent = roseDays;
             });
         }
         function updateDateDisplay() {
