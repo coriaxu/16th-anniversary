@@ -975,6 +975,63 @@
             box-shadow: 0 2px 8px rgba(176, 93, 103, 0.3);
         }
 
+        .city-badge-spring {
+            background: linear-gradient(135deg, #FF6B9D, #FFA07A);
+        }
+
+        .city-badge-music {
+            background: linear-gradient(135deg, #9D50BB, #6E48AA);
+            font-size: 0.85rem;
+        }
+
+        .city-badge-journey {
+            background: linear-gradient(135deg, #F79D00, #64f38c);
+            padding: 0.4rem 1rem;
+        }
+
+        .city-badge-autumn {
+            background: linear-gradient(135deg, #FF512F, #DD2476);
+        }
+
+        /* 特殊卡片样式 */
+        .city-card-special {
+            background: linear-gradient(135deg, #FFF5F8 0%, #F9F0FF 100%);
+            border-color: rgba(157, 80, 187, 0.2);
+        }
+
+        .city-card-special:hover {
+            border-color: #9D50BB;
+            box-shadow: 0 12px 40px rgba(157, 80, 187, 0.15);
+        }
+
+        .city-card-journey {
+            background: linear-gradient(135deg, #FFFAF0 0%, #FFF8DC 100%);
+            border-color: rgba(247, 157, 0, 0.2);
+        }
+
+        .city-card-journey:hover {
+            border-color: #F79D00;
+            box-shadow: 0 12px 40px rgba(247, 157, 0, 0.15);
+        }
+
+        /* 旅程城市标签 */
+        .journey-city-tag {
+            display: inline-block;
+            background: rgba(247, 157, 0, 0.1);
+            color: var(--text-gold);
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid rgba(247, 157, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .journey-city-tag:hover {
+            background: rgba(247, 157, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
         /* 统计信息 */
         .journey-stats {
             display: flex;
@@ -1254,44 +1311,181 @@
     <section class="py-24 px-6 relative overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-white/30 pointer-events-none"></div>
 
-        <div class="max-w-4xl mx-auto relative z-10">
+        <div class="max-w-6xl mx-auto relative z-10">
             <div class="text-center mb-16 animate-fade-up">
                 <h3 class="text-lg font-bold text-primary tracking-widest eng-label mb-3">2025 · 我们的足迹</h3>
                 <p class="text-sm text-gray-500 eng-title italic">Every journey together is a story</p>
             </div>
 
             <!-- 城市卡片网格 -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
                 <!-- 北京 - 家 -->
                 <div class="city-card city-card-home animate-fade-up group">
                     <div class="absolute top-4 right-4">
                         <div class="text-3xl">🏠</div>
                     </div>
                     <div class="city-card-content">
-                        <div class="flex items-baseline gap-3 mb-3">
+                        <div class="flex items-baseline gap-3 mb-2">
                             <h4 class="text-2xl font-bold text-gold-enhanced">北京</h4>
-                            <span class="text-xs eng-label tracking-wider opacity-60">HOME</span>
                         </div>
-                        <p class="text-sm text-gray-500 mb-3 eng-label">常驻城市</p>
-                        <p class="text-base text-gray-700 leading-relaxed italic">
+                        <p class="text-xs text-gray-500 mb-2 eng-label">常驻城市</p>
+                        <p class="text-sm text-gray-700 leading-relaxed">
                             我们的家，温暖的港湾
                         </p>
                     </div>
                     <div class="city-card-decoration"></div>
                 </div>
 
-                <!-- 厦门 -->
+                <!-- 宣城 -->
+                <div class="city-card animate-fade-up group" style="transition-delay: 0.05s">
+                    <div class="absolute top-4 right-4">
+                        <span class="city-badge city-badge-spring">春节</span>
+                    </div>
+                    <div class="city-card-content">
+                        <div class="flex items-baseline gap-3 mb-2">
+                            <h4 class="text-2xl font-bold text-primary">宣城</h4>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-2 eng-label">2025 年 1 月</p>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            春节团圆，年味十足
+                        </p>
+                    </div>
+                    <div class="city-card-decoration"></div>
+                </div>
+
+                <!-- 南京 -->
                 <div class="city-card animate-fade-up group" style="transition-delay: 0.1s">
+                    <div class="absolute top-4 right-4">
+                        <span class="city-badge city-badge-spring">春节</span>
+                    </div>
+                    <div class="city-card-content">
+                        <div class="flex items-baseline gap-3 mb-2">
+                            <h4 class="text-2xl font-bold text-primary">南京</h4>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-2 eng-label">2025 年 1 月</p>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            六朝古都，历史韵味
+                        </p>
+                    </div>
+                    <div class="city-card-decoration"></div>
+                </div>
+
+                <!-- 扬州 -->
+                <div class="city-card animate-fade-up group" style="transition-delay: 0.15s">
+                    <div class="city-card-content">
+                        <div class="flex items-baseline gap-3 mb-2">
+                            <h4 class="text-2xl font-bold text-primary">扬州</h4>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-2 eng-label">2025 年 2 月</p>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            烟花三月下扬州
+                        </p>
+                    </div>
+                    <div class="city-card-decoration"></div>
+                </div>
+
+                <!-- 上海 - 演唱会 -->
+                <div class="city-card city-card-special animate-fade-up group" style="transition-delay: 0.2s">
+                    <div class="absolute top-4 right-4">
+                        <span class="city-badge city-badge-music">🎤</span>
+                    </div>
+                    <div class="city-card-content">
+                        <div class="flex items-baseline gap-3 mb-2">
+                            <h4 class="text-2xl font-bold text-primary">上海</h4>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-2 eng-label">2025 年 4 月</p>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            孙燕姿演唱会，遇见最美的声音
+                        </p>
+                    </div>
+                    <div class="city-card-decoration"></div>
+                </div>
+
+                <!-- 西北大环线 - 跨列特殊卡片 -->
+                <div class="city-card city-card-journey animate-fade-up group lg:col-span-3" style="transition-delay: 0.25s">
+                    <div class="absolute top-4 right-4">
+                        <span class="city-badge city-badge-journey">🚗 大环线</span>
+                    </div>
+                    <div class="city-card-content">
+                        <div class="flex items-baseline gap-3 mb-3">
+                            <h4 class="text-2xl font-bold text-primary">西北大环线</h4>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-3 eng-label">2025 年 5 月</p>
+                        <div class="flex flex-wrap gap-3 mb-3">
+                            <span class="journey-city-tag">银川</span>
+                            <span class="journey-city-tag">张掖</span>
+                            <span class="journey-city-tag">武威</span>
+                            <span class="journey-city-tag">嘉峪关</span>
+                            <span class="journey-city-tag">西宁</span>
+                        </div>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            穿越大漠戈壁，领略西北风光。从宁夏到甘肃，从丹霞到草原，五城连线，千里征程。
+                        </p>
+                    </div>
+                    <div class="city-card-decoration"></div>
+                </div>
+
+                <!-- 广灵 -->
+                <div class="city-card animate-fade-up group" style="transition-delay: 0.3s">
+                    <div class="city-card-content">
+                        <div class="flex items-baseline gap-3 mb-2">
+                            <h4 class="text-2xl font-bold text-primary">广灵</h4>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-2 eng-label">2025 年 6 月</p>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            夏日时光，山水相依
+                        </p>
+                    </div>
+                    <div class="city-card-decoration"></div>
+                </div>
+
+                <!-- 江西三城 - 跨列特殊卡片 -->
+                <div class="city-card city-card-journey animate-fade-up group lg:col-span-2" style="transition-delay: 0.35s">
+                    <div class="absolute top-4 right-4">
+                        <span class="city-badge city-badge-autumn">秋游</span>
+                    </div>
+                    <div class="city-card-content">
+                        <div class="flex items-baseline gap-3 mb-3">
+                            <h4 class="text-2xl font-bold text-primary">江西三城</h4>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-3 eng-label">2025 年 10 月</p>
+                        <div class="flex flex-wrap gap-3 mb-3">
+                            <span class="journey-city-tag">南昌</span>
+                            <span class="journey-city-tag">景德镇</span>
+                            <span class="journey-city-tag">庐山</span>
+                        </div>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            探访英雄城南昌，感受千年瓷都魅力，登临庐山望云海
+                        </p>
+                    </div>
+                    <div class="city-card-decoration"></div>
+                </div>
+
+                <!-- 郑州 -->
+                <div class="city-card animate-fade-up group" style="transition-delay: 0.4s">
+                    <div class="city-card-content">
+                        <div class="flex items-baseline gap-3 mb-2">
+                            <h4 class="text-2xl font-bold text-primary">郑州</h4>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-2 eng-label">2025 年 11 月</p>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            中原腹地，古都新貌
+                        </p>
+                    </div>
+                    <div class="city-card-decoration"></div>
+                </div>
+
+                <!-- 厦门 - 最新 -->
+                <div class="city-card animate-fade-up group" style="transition-delay: 0.45s">
                     <div class="absolute top-4 right-4">
                         <span class="city-badge">最新</span>
                     </div>
                     <div class="city-card-content">
-                        <div class="flex items-baseline gap-3 mb-3">
+                        <div class="flex items-baseline gap-3 mb-2">
                             <h4 class="text-2xl font-bold text-primary">厦门</h4>
-                            <span class="text-xs eng-label tracking-wider opacity-60">XIAMEN</span>
                         </div>
-                        <p class="text-sm text-gray-500 mb-3 eng-label">2025 年 · 上周</p>
-                        <p class="text-base text-gray-700 leading-relaxed italic">
+                        <p class="text-xs text-gray-500 mb-2 eng-label">2025 年 11 月</p>
+                        <p class="text-sm text-gray-700 leading-relaxed">
                             海风轻拂，日落如画
                         </p>
                     </div>
@@ -1300,9 +1494,9 @@
             </div>
 
             <!-- 统计信息 -->
-            <div class="journey-stats animate-fade-up" style="transition-delay: 0.2s">
+            <div class="journey-stats animate-fade-up" style="transition-delay: 0.5s">
                 <div class="stat-item">
-                    <span class="stat-number">2</span>
+                    <span class="stat-number">16</span>
                     <span class="stat-label">Cities</span>
                 </div>
                 <div class="stat-divider"></div>
