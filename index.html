@@ -1986,17 +1986,9 @@
 
         // ============ 主题引擎 ============
         function checkAnniversaryTheme() {
-            const today = new Date();
-            const isAnniversary = (today.getMonth() + 1 === 12) && (today.getDate() === 10);
-            const forceAnniversary = false; // 日常模式设为 false
-
-            if (isAnniversary || forceAnniversary) {
-                document.body.classList.add('theme-mist');
-                console.log("Theme: Mode A (Mist) Activated");
-            } else {
-                document.body.classList.remove('theme-mist');
-                console.log("Theme: Mode Default (Rose)");
-            }
+            // 已禁用自动变色：始终使用默认玫瑰色主题
+            document.body.classList.remove('theme-mist');
+            console.log("Theme: Mode Default (Rose)");
         }
 
         function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
