@@ -11,11 +11,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Noto+Serif+SC:wght@300;400;600&family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=ZCOOL+XiaoWei&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Noto+Serif+SC:wght@300;400;600&family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=ZCOOL+XiaoWei&family=Allura&display=swap"
         rel="stylesheet" media="print" onload="this.media='all'">
     <noscript>
         <link
-            href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Noto+Serif+SC:wght@300;400;600&family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=ZCOOL+XiaoWei&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Noto+Serif+SC:wght@300;400;600&family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=ZCOOL+XiaoWei&family=Allura&display=swap"
             rel="stylesheet">
     </noscript>
 
@@ -1455,6 +1455,603 @@
                 font-size: 2rem;
             }
         }
+
+        /* ============ 遇见·金句 日历组件样式 ============ */
+        .daily-quote-section {
+            padding: 4rem 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .daily-quote-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, var(--primary-color), transparent);
+            opacity: 0.3;
+        }
+
+        .daily-quote-title {
+            font-family: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+            font-size: 0.95rem;
+            color: var(--ink-grey);
+            text-align: center;
+            margin-bottom: 2rem;
+            letter-spacing: 0.18em;
+            line-height: 2.1;
+            opacity: 0.72;
+            max-width: 36rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .calendar-container {
+            max-width: 320px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+
+        /* 日历封面（未撕开状态） */
+        .calendar-cover {
+            position: relative;
+            background: linear-gradient(145deg, #FFFDF8 0%, #FFF8E7 50%, #FAEBD7 100%);
+            border: 1px solid rgba(184, 146, 85, 0.3);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), 0 2px 10px rgba(0, 0, 0, 0.04);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: top center;
+            overflow: hidden;
+        }
+
+        .calendar-cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg,
+                    transparent 10%,
+                    rgba(184, 146, 85, 0.3) 10%,
+                    rgba(184, 146, 85, 0.3) 15%,
+                    transparent 15%,
+                    transparent 25%,
+                    rgba(184, 146, 85, 0.3) 25%,
+                    rgba(184, 146, 85, 0.3) 30%,
+                    transparent 30%,
+                    transparent 40%,
+                    rgba(184, 146, 85, 0.3) 40%,
+                    rgba(184, 146, 85, 0.3) 45%,
+                    transparent 45%,
+                    transparent 55%,
+                    rgba(184, 146, 85, 0.3) 55%,
+                    rgba(184, 146, 85, 0.3) 60%,
+                    transparent 60%,
+                    transparent 70%,
+                    rgba(184, 146, 85, 0.3) 70%,
+                    rgba(184, 146, 85, 0.3) 75%,
+                    transparent 75%,
+                    transparent 85%,
+                    rgba(184, 146, 85, 0.3) 85%,
+                    rgba(184, 146, 85, 0.3) 90%,
+                    transparent 90%);
+            border-radius: 16px 16px 0 0;
+        }
+
+        .calendar-cover:hover {
+            transform: translateY(-4px) rotateX(2deg);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12), 0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        .calendar-cover:hover .calendar-curl {
+            height: 25px;
+            opacity: 0.6;
+        }
+
+        /* 页脚卷边效果 */
+        .calendar-curl {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 15px;
+            background: linear-gradient(135deg, transparent 50%, rgba(184, 146, 85, 0.2) 50%);
+            border-radius: 0 0 16px 0;
+            transition: all 0.3s ease;
+            opacity: 0.4;
+        }
+
+        /* 火漆印章 */
+        .wax-seal {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            background: radial-gradient(circle at 30% 30%,
+                    #C5A065 0%,
+                    #A67C52 30%,
+                    #8B6914 60%,
+                    #6B5210 100%);
+            border-radius: 50%;
+            box-shadow:
+                0 4px 15px rgba(139, 105, 20, 0.4),
+                inset 0 2px 4px rgba(255, 255, 255, 0.3),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: sealPulse 3s ease-in-out infinite;
+        }
+
+        .wax-seal::before {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .wax-seal::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle at 22% 20%,
+                    rgba(255, 255, 255, 0.35) 0%,
+                    rgba(255, 255, 255, 0.12) 22%,
+                    rgba(255, 255, 255, 0) 55%);
+            pointer-events: none;
+        }
+
+        .wax-seal-icon {
+            width: 40px;
+            height: 40px;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+        }
+
+        @keyframes sealPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.03);
+            }
+        }
+
+        /* 日历日期 */
+        .calendar-date {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #5D4037;
+            text-align: center;
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* 日历标签 */
+        .calendar-label {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 0.9rem;
+            color: #8D6E63;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 0.15rem;
+        }
+
+        .calendar-label-main {
+            font-weight: 600;
+            letter-spacing: 0.12em;
+        }
+
+        .calendar-label-sub {
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            opacity: 0.75;
+        }
+
+        /* 撕开后的明信片 */
+        .quote-postcard {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15), 0 5px 20px rgba(0, 0, 0, 0.08);
+            aspect-ratio: 3 / 4;
+            max-height: 480px;
+            --postcard-footer-ink: rgba(0, 0, 0, 0.42);
+            --postcard-signature-ink: rgba(0, 0, 0, 0.66);
+            --postcard-watermark-ink: rgba(0, 0, 0, 0.07);
+        }
+
+        .quote-postcard.gradient-bg-8 {
+            --postcard-footer-ink: rgba(255, 255, 255, 0.72);
+            --postcard-signature-ink: rgba(255, 255, 255, 0.92);
+            --postcard-watermark-ink: rgba(255, 255, 255, 0.26);
+        }
+
+        .quote-postcard-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .quote-postcard-bg.quote-postcard-bg-image {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: saturate(0.85) contrast(1.08) brightness(0.96);
+        }
+
+        .quote-postcard-bg.quote-postcard-bg-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg,
+                    rgba(255, 255, 255, 0.25) 0%,
+                    rgba(255, 255, 255, 0.42) 35%,
+                    rgba(255, 255, 255, 0.38) 70%,
+                    rgba(255, 255, 255, 0.18) 100%);
+            pointer-events: none;
+        }
+
+        .quote-name-watermark {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 6;
+            pointer-events: none;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 2.1rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--postcard-watermark-ink);
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            transform: rotate(-12deg);
+        }
+
+        .quote-postcard-content {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1.5rem;
+            background: linear-gradient(180deg,
+                    rgba(255, 255, 255, 0.1) 0%,
+                    rgba(255, 255, 255, 0.3) 30%,
+                    rgba(255, 255, 255, 0.3) 70%,
+                    rgba(255, 255, 255, 0.1) 100%);
+        }
+
+        .quote-postcard-border {
+            position: absolute;
+            inset: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .quote-text {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.15rem;
+            line-height: 2;
+            color: #333;
+            text-align: center;
+            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
+            max-width: 90%;
+            margin-bottom: 1rem;
+        }
+
+        .quote-author {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 0.85rem;
+            color: #666;
+            text-align: center;
+            opacity: 0.8;
+        }
+
+        .quote-footer {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            right: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            z-index: 15;
+        }
+
+        .quote-date-watermark {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 0.7rem;
+            color: var(--postcard-footer-ink);
+            letter-spacing: 0.05em;
+        }
+
+        .quote-signature {
+            text-align: right;
+        }
+
+        .quote-couple-name {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 0.75rem;
+            color: rgba(0, 0, 0, 0.5);
+            letter-spacing: 0.05em;
+        }
+
+        .quote-love-you {
+            font-family: 'Allura', 'Playfair Display', cursive;
+            font-size: 1.35rem;
+            color: var(--postcard-signature-ink);
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.32), 0 10px 24px rgba(0, 0, 0, 0.14);
+        }
+
+        /* 下载按钮 */
+        .quote-download-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 20;
+        }
+
+        .quote-postcard:hover .quote-download-btn {
+            opacity: 1;
+        }
+
+        .quote-download-btn:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        /* 动画：撕开效果 */
+        .calendar-cover.tearing {
+            animation: tearAway 0.6s ease-out forwards;
+        }
+
+        @keyframes tearAway {
+            0% {
+                transform: translateY(0) rotateX(0) rotateZ(0);
+                opacity: 1;
+            }
+
+            30% {
+                transform: translateY(-18px) translateX(-4px) rotateX(-18deg) rotateZ(-2deg);
+            }
+
+            100% {
+                transform: translateY(-120px) translateX(10px) rotateX(-55deg) rotateZ(8deg);
+                opacity: 0;
+            }
+        }
+
+        /* 撕裂纸屑：掉落的“撕下边” */
+        .tear-scrap {
+            position: fixed;
+            height: 26px;
+            border-radius: 0 0 14px 14px;
+            background: linear-gradient(145deg, #FFFDF8 0%, #FFF8E7 50%, #FAEBD7 100%);
+            border: 1px solid rgba(184, 146, 85, 0.25);
+            border-top: none;
+            box-shadow: 0 18px 35px rgba(0, 0, 0, 0.14);
+            pointer-events: none;
+            z-index: 10000;
+            clip-path: polygon(0% 35%, 4% 18%, 9% 36%, 14% 12%, 19% 34%, 24% 10%, 30% 32%, 35% 14%, 41% 34%, 47% 12%, 53% 33%, 60% 10%, 67% 32%, 74% 14%, 81% 34%, 88% 12%, 94% 36%, 100% 26%, 100% 100%, 0% 100%);
+            transform-origin: 20% 0%;
+            animation: tearScrapFall 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes tearScrapFall {
+            0% {
+                opacity: 0;
+                transform: translateY(0) rotate(0deg);
+            }
+
+            12% {
+                opacity: 1;
+            }
+
+            55% {
+                transform: translateY(140px) translateX(8px) rotate(10deg);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: translateY(240px) translateX(24px) rotate(18deg);
+                opacity: 0;
+            }
+        }
+
+        .quote-postcard.revealing {
+            animation: revealCard 0.5s ease-out 0.4s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes revealCard {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* CSS渐变背景库 */
+        .gradient-bg-1 {
+            background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+        }
+
+        .gradient-bg-2 {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .gradient-bg-3 {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .gradient-bg-4 {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .gradient-bg-5 {
+            background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
+        }
+
+        .gradient-bg-6 {
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+        }
+
+        .gradient-bg-7 {
+            background: linear-gradient(135deg, #96fbc4 0%, #f9f586 100%);
+        }
+
+        .gradient-bg-8 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .gradient-bg-9 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .gradient-bg-10 {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .gradient-bg-11 {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .gradient-bg-12 {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .gradient-bg-13 {
+            background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+        }
+
+        .gradient-bg-14 {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+        }
+
+        .gradient-bg-15 {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .gradient-bg-16 {
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+        }
+
+        .gradient-bg-17 {
+            background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+        }
+
+        .gradient-bg-18 {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+        }
+
+        .gradient-bg-19 {
+            background: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%);
+        }
+
+        .gradient-bg-20 {
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+        }
+
+        .gradient-bg-21 {
+            background: linear-gradient(135deg, #f5f7fa 0%, #b8c6db 100%);
+        }
+
+        .gradient-bg-22 {
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+        }
+
+        .gradient-bg-23 {
+            background: linear-gradient(135deg, #fff1eb 0%, #ace0f9 100%);
+        }
+
+        .gradient-bg-24 {
+            background: linear-gradient(135deg, #ebc0fd 0%, #d9ded8 100%);
+        }
+
+        .gradient-bg-25 {
+            background: linear-gradient(135deg, #f6f6f6 0%, #e9e9e9 100%);
+        }
+
+        .gradient-bg-26 {
+            background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+        }
+
+        .gradient-bg-27 {
+            background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+        }
+
+        .gradient-bg-28 {
+            background: linear-gradient(135deg, #fddb92 0%, #d1fdff 100%);
+        }
+
+        .gradient-bg-29 {
+            background: linear-gradient(135deg, #c1dfc4 0%, #deecdd 100%);
+        }
+
+        .gradient-bg-30 {
+            background: linear-gradient(135deg, #faf0e6 0%, #e8dfd5 100%);
+        }
+
+        /* 响应式调整 */
+        @media (min-width: 768px) {
+            .calendar-container {
+                max-width: 360px;
+            }
+
+            .quote-text {
+                font-size: 1.25rem;
+            }
+
+            .wax-seal {
+                width: 90px;
+                height: 90px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .calendar-container {
+                max-width: 400px;
+            }
+
+            .quote-postcard {
+                max-height: 540px;
+            }
+        }
     </style>
 </head>
 
@@ -1530,6 +2127,72 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3">
                 </path>
             </svg>
+        </div>
+    </section>
+
+    <!-- 遇见·金句 日历组件 -->
+    <section class="daily-quote-section animate-fade-up" id="dailyQuoteSection">
+        <p class="daily-quote-title">“每一个撕下日历的日子，都是我们在相爱。”</p>
+
+        <div class="calendar-container" id="calendarContainer">
+            <!-- 日历封面（未撕开状态） -->
+            <div class="calendar-cover" id="calendarCover" role="button" tabindex="0" aria-label="撕开今天的共鸣">
+                <!-- 活页环装饰（顶部） -->
+                <div class="wax-seal">
+                    <svg class="wax-seal-icon" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+                        <defs>
+                            <linearGradient id="sealIconMetal" x1="10" y1="8" x2="54" y2="56"
+                                gradientUnits="userSpaceOnUse">
+                                <stop offset="0" stop-color="#ffffff" stop-opacity="0.95" />
+                                <stop offset="0.45" stop-color="#ffffff" stop-opacity="0.55" />
+                                <stop offset="1" stop-color="#ffffff" stop-opacity="0.22" />
+                            </linearGradient>
+                        </defs>
+                        <path
+                            d="M32 10l14 14-6 30H24L18 24 32 10z"
+                            fill="url(#sealIconMetal)" />
+                        <path
+                            d="M32 10l14 14-6 30H24L18 24 32 10z"
+                            fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="2"
+                            stroke-linejoin="round" />
+                        <circle cx="32" cy="32" r="4" fill="#ffffff" fill-opacity="0.55" />
+                        <path d="M32 20v20" stroke="#ffffff" stroke-opacity="0.28" stroke-width="2"
+                            stroke-linecap="round" />
+                        <path d="M26.5 44.5l5.5-5.5 5.5 5.5" fill="none" stroke="#ffffff"
+                            stroke-opacity="0.3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div class="calendar-date" id="calendarDate">2025年12月26日</div>
+                <div class="calendar-label">
+                    <span class="calendar-label-main">遇见·金句</span>
+                    <span class="calendar-label-sub">today's resonance</span>
+                </div>
+                <div class="calendar-curl"></div>
+            </div>
+
+            <!-- 撕开后的明信片（默认隐藏） -->
+            <div class="quote-postcard" id="quotePostcard" style="display: none;">
+                <div class="quote-postcard-bg gradient-bg-1" id="quoteBg"></div>
+                <div class="quote-postcard-border"></div>
+                <div class="quote-name-watermark" aria-hidden="true">Coria &amp; Minnie</div>
+                <div class="quote-postcard-content">
+                    <p class="quote-text" id="quoteText">"醒来觉得甚是爱你。"</p>
+                    <p class="quote-author" id="quoteAuthor">—— 朱生豪</p>
+                </div>
+                <div class="quote-footer">
+                    <div class="quote-date-watermark" id="quoteDateWatermark">2025年12月26日</div>
+                    <div class="quote-signature">
+                        <div class="quote-love-you">Love You</div>
+                    </div>
+                </div>
+                <button class="quote-download-btn" id="quoteDownloadBtn" title="保存图片">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                </button>
+            </div>
         </div>
     </section>
 
@@ -1657,7 +2320,8 @@
 
     <!-- 城市足迹 -->
     <section class="py-24 px-6 relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-white/30 pointer-events-none"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-white/30 pointer-events-none">
+        </div>
 
         <div class="max-w-6xl mx-auto relative z-10">
             <div class="text-center mb-16 animate-fade-up">
@@ -1977,6 +2641,11 @@
         </div>
     </div>
 
+    <!-- 引入金句库 -->
+    <script src="quotes.js"></script>
+    <!-- 引入html2canvas用于图片下载 -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
     <script>
         const CONFIG = {
             startDate: new Date('2009-12-10T00:00:00+08:00').getTime(),
@@ -2144,6 +2813,8 @@
             handleEntrance(); // 绑定入场按钮点击事件
             setInterval(updateTimer, 1000);
             updateTimer();
+            // 初始化日历组件
+            initDailyQuote();
             // 移除自动播放尝试，改为用户点击后播放
             let scrollTimeout;
             window.addEventListener('scroll', function () {
@@ -2168,6 +2839,231 @@
             const colors = isMist ? ['#5F8D84', '#7DAEA5', '#ffffff'] : ['#B05D67', '#C5A065', '#ffffff'];
             confetti({ particleCount: 30, spread: 60, origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight }, colors: colors });
         });
+
+	        // ============ 遇见·金句 日历组件逻辑 ============
+
+        // 种子随机数生成器（基于日期，保证同一天返回相同结果）
+        function seededRandom(seed) {
+            const x = Math.sin(seed) * 10000;
+            return x - Math.floor(x);
+        }
+
+        // 获取今日种子（基于日期）
+        function getTodaySeed() {
+            const now = new Date();
+            const dateStr = now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
+            return dateStr;
+        }
+
+        // 格式化日期为中文格式
+        function formatDateChinese(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}年${month}月${day}日`;
+        }
+
+        // 获取今日金句（基于种子随机）
+        function getTodayQuote() {
+            const seed = getTodaySeed();
+            const index = Math.floor(seededRandom(seed) * LOVE_QUOTES.length);
+            return LOVE_QUOTES[index];
+        }
+
+	        // 获取今日背景渐变编号（1-30）
+	        function getTodayGradient() {
+	            const seed = getTodaySeed() + 123456; // 使用不同的偏移量，确保与金句不同步
+	            return Math.floor(seededRandom(seed) * 30) + 1;
+	        }
+
+	        // 精选艺术图集（推荐：放本地低饱和高清图；如 calendar-backgrounds/01.jpg）
+	        // 说明：静态网页无法自动读取文件夹内容，需要手动把文件名写在这里。
+	        const CURATED_BACKGROUND_IMAGES = [
+	            // 'calendar-backgrounds/01.jpg',
+	            // 'calendar-backgrounds/02.jpg',
+	        ];
+
+	        function getTodayBackgroundChoice() {
+	            if (CURATED_BACKGROUND_IMAGES.length === 0) {
+	                return { type: 'gradient', gradientNum: getTodayGradient() };
+	            }
+	            const seed = getTodaySeed() + 654321;
+	            const index = Math.floor(seededRandom(seed) * CURATED_BACKGROUND_IMAGES.length);
+	            return {
+	                type: 'image',
+	                url: CURATED_BACKGROUND_IMAGES[index],
+	                fallbackGradientNum: getTodayGradient()
+	            };
+	        }
+
+	        function clearGradientClasses(element) {
+	            Array.from(element.classList).forEach(cls => {
+	                if (cls.startsWith('gradient-bg-')) element.classList.remove(cls);
+	            });
+	        }
+
+	        function applyPostcardBackground(choice) {
+	            const postcard = document.getElementById('quotePostcard');
+	            const quoteBg = document.getElementById('quoteBg');
+
+	            clearGradientClasses(postcard);
+	            clearGradientClasses(quoteBg);
+	            quoteBg.classList.remove('quote-postcard-bg-image');
+	            quoteBg.style.backgroundImage = '';
+
+	            if (choice.type === 'image') {
+	                quoteBg.classList.add('quote-postcard-bg-image');
+	                quoteBg.style.backgroundImage = `url("${choice.url}")`;
+	                // 同时加一个渐变 class 用于深色文案/水印样式兜底（下载也更稳定）
+	                const fallback = choice.fallbackGradientNum ?? 1;
+	                postcard.classList.add(`gradient-bg-${fallback}`);
+	                quoteBg.classList.add(`gradient-bg-${fallback}`);
+	                return;
+	            }
+
+	            postcard.classList.add(`gradient-bg-${choice.gradientNum}`);
+	            quoteBg.classList.add(`gradient-bg-${choice.gradientNum}`);
+	        }
+
+        // 检查今天是否已经撕开
+        function checkTodayOpened() {
+            const todayKey = 'dailyQuote_' + getTodaySeed();
+            return localStorage.getItem(todayKey) === 'opened';
+        }
+
+        // 标记今天已撕开
+        function markTodayOpened() {
+            const todayKey = 'dailyQuote_' + getTodaySeed();
+            localStorage.setItem(todayKey, 'opened');
+        }
+
+	        // 显示明信片内容
+	        function showPostcard() {
+	            const quote = getTodayQuote();
+	            const bgChoice = getTodayBackgroundChoice();
+	            const today = formatDateChinese(new Date());
+
+	            // 更新内容
+	            document.getElementById('quoteText').textContent = '“' + quote.content + '”';
+	            document.getElementById('quoteAuthor').textContent = '—— ' + quote.author;
+	            document.getElementById('quoteDateWatermark').textContent = today;
+
+	            // 更新背景
+	            applyPostcardBackground(bgChoice);
+
+            // 显示明信片
+            document.getElementById('quotePostcard').style.display = 'block';
+            document.getElementById('quotePostcard').classList.add('revealing');
+        }
+
+	        // 撕开日历动画
+	        function tearCalendar() {
+	            const cover = document.getElementById('calendarCover');
+	            const postcard = document.getElementById('quotePostcard');
+
+	            if (!cover || cover.classList.contains('tearing')) return;
+	            cover.style.pointerEvents = 'none';
+
+	            const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	            // 播裂纸屑（更真实的撕纸质感）
+	            if (!prefersReducedMotion) {
+	                const rect = cover.getBoundingClientRect();
+	                const scrap = document.createElement('div');
+	                scrap.className = 'tear-scrap';
+	                scrap.style.left = `${rect.left}px`;
+	                scrap.style.top = `${Math.round(rect.top) + 6}px`;
+	                scrap.style.width = `${rect.width}px`;
+	                document.body.appendChild(scrap);
+	                scrap.addEventListener('animationend', () => scrap.remove(), { once: true });
+	            }
+
+	            if (prefersReducedMotion) {
+	                cover.style.display = 'none';
+	                showPostcard();
+	                markTodayOpened();
+	                postcard.classList.remove('revealing');
+	                postcard.style.opacity = '1';
+	                postcard.style.transform = 'translateY(0)';
+	                return;
+	            }
+
+	            // 添加撕开动画
+	            cover.classList.add('tearing');
+
+	            // 动画结束后隐藏封面，显示明信片
+	            setTimeout(() => {
+	                cover.style.display = 'none';
+	                showPostcard();
+                markTodayOpened();
+            }, 600);
+        }
+
+        // 下载明信片为图片
+        function downloadPostcard() {
+            const postcard = document.getElementById('quotePostcard');
+            const downloadBtn = document.getElementById('quoteDownloadBtn');
+
+            // 临时隐藏下载按钮
+            downloadBtn.style.display = 'none';
+
+            html2canvas(postcard, {
+                scale: 3, // 高清3倍渲染
+                useCORS: true,
+                backgroundColor: null
+            }).then(canvas => {
+                // 恢复下载按钮
+                downloadBtn.style.display = 'flex';
+
+                // 下载图片
+                const link = document.createElement('a');
+                const today = new Date();
+                const fileName = `爱的金句_${today.getFullYear()}${String(today.getMonth() + 1).padStart(2, '0')}${String(today.getDate()).padStart(2, '0')}.png`;
+                link.download = fileName;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            }).catch(err => {
+                console.error('下载失败:', err);
+                downloadBtn.style.display = 'flex';
+            });
+        }
+
+	        // 初始化日历组件
+	        function initDailyQuote() {
+            const today = formatDateChinese(new Date());
+            const cover = document.getElementById('calendarCover');
+            const postcard = document.getElementById('quotePostcard');
+
+            // 更新日历封面日期
+            document.getElementById('calendarDate').textContent = today;
+
+            // 检查今天是否已撕开
+            if (checkTodayOpened()) {
+                // 已撕开，直接显示明信片
+                cover.style.display = 'none';
+                showPostcard();
+                // 移除动画类，直接显示
+                setTimeout(() => {
+                    postcard.classList.remove('revealing');
+                    postcard.style.opacity = '1';
+                    postcard.style.transform = 'translateY(0)';
+                }, 100);
+	            } else {
+	                // 未撕开，绑定点击事件
+	                cover.addEventListener('click', tearCalendar);
+	                cover.addEventListener('keydown', function (e) {
+	                    if (e.key !== 'Enter' && e.key !== ' ') return;
+	                    e.preventDefault();
+	                    tearCalendar();
+	                });
+	            }
+
+            // 绑定下载按钮
+            document.getElementById('quoteDownloadBtn').addEventListener('click', function (e) {
+                e.stopPropagation();
+                downloadPostcard();
+            });
+        }
     </script>
 </body>
 
