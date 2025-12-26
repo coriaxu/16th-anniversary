@@ -1672,6 +1672,7 @@
             box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15), 0 5px 20px rgba(0, 0, 0, 0.08);
             aspect-ratio: 3 / 4;
             max-height: 480px;
+            background: linear-gradient(180deg, #fefbf6 0%, #f7f1e9 100%);
             --postcard-footer-ink: rgba(0, 0, 0, 0.42);
             --postcard-signature-ink: rgba(0, 0, 0, 0.66);
             --postcard-watermark-ink: rgba(0, 0, 0, 0.07);
@@ -1687,26 +1688,31 @@
             position: absolute;
             inset: 0;
             z-index: 0;
+            background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.35), transparent 45%),
+                radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.25), transparent 45%),
+                radial-gradient(circle at 10% 80%, rgba(255, 255, 255, 0.15), transparent 50%);
         }
 
         .quote-postcard-bg.quote-postcard-bg-image {
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            filter: saturate(0.85) contrast(1.08) brightness(0.96);
+            filter: saturate(0.88) contrast(1.05) brightness(0.96);
         }
 
         .quote-postcard-bg.quote-postcard-bg-image::after {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg,
-                    rgba(255, 255, 255, 0.25) 0%,
-                    rgba(255, 255, 255, 0.42) 35%,
-                    rgba(255, 255, 255, 0.38) 70%,
-                    rgba(255, 255, 255, 0.18) 100%);
+            background:
+                linear-gradient(180deg,
+                    rgba(255, 255, 255, 0.36) 0%,
+                    rgba(255, 255, 255, 0.48) 30%,
+                    rgba(255, 255, 255, 0.38) 68%,
+                    rgba(255, 255, 255, 0.18) 100%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
             pointer-events: none;
-        }
+            }
 
         .quote-name-watermark {
             position: absolute;
@@ -1749,6 +1755,62 @@
             border-radius: 12px;
             pointer-events: none;
             z-index: 5;
+        }
+
+        /* 装订与撕口质感 */
+        .quote-binding {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 36px;
+            z-index: 12;
+            pointer-events: none;
+        }
+
+        .quote-binding .ring {
+            width: 22px;
+            height: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.12);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5));
+        }
+
+        .quote-stub {
+            position: absolute;
+            inset: 0;
+            z-index: 4;
+            pointer-events: none;
+        }
+
+        .quote-stub::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -18px;
+            bottom: 0;
+            width: 18px;
+            background: linear-gradient(180deg, #fdf7ee 0%, #f3e6d8 100%);
+            border-radius: 10px 0 0 10px;
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .quote-stub::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: -12px;
+            bottom: 8px;
+            width: 2px;
+            background-image: repeating-linear-gradient(to bottom,
+                    rgba(0, 0, 0, 0.08) 0,
+                    rgba(0, 0, 0, 0.08) 4px,
+                    transparent 4px,
+                    transparent 8px);
+            opacity: 0.7;
         }
 
         .quote-text {
@@ -2174,6 +2236,8 @@
             <div class="quote-postcard" id="quotePostcard" style="display: none;">
                 <div class="quote-postcard-bg gradient-bg-1" id="quoteBg"></div>
                 <div class="quote-postcard-border"></div>
+                <div class="quote-binding"><span class="ring"></span><span class="ring"></span></div>
+                <div class="quote-stub" aria-hidden="true"></div>
                 <div class="quote-name-watermark" aria-hidden="true">Coria &amp; Minnie</div>
                 <div class="quote-postcard-content">
                     <p class="quote-text" id="quoteText">"醒来觉得甚是爱你。"</p>
@@ -2878,10 +2942,13 @@
 
 	        // 精选艺术图集（推荐：放本地低饱和高清图；如 calendar-backgrounds/01.jpg）
 	        // 说明：静态网页无法自动读取文件夹内容，需要手动把文件名写在这里。
-	        const CURATED_BACKGROUND_IMAGES = [
-	            // 'calendar-backgrounds/01.jpg',
-	            // 'calendar-backgrounds/02.jpg',
-	        ];
+        const CURATED_BACKGROUND_IMAGES = [
+            // 推荐：把本地精选图放入 calendar-backgrounds/ 并改成相对路径
+            // 示例占位图（低饱和、高质感，需网络访问）：
+            'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80',
+            'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1200&q=80',
+            'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=1200&q=80'
+        ];
 
 	        function getTodayBackgroundChoice() {
 	            if (CURATED_BACKGROUND_IMAGES.length === 0) {
